@@ -22,8 +22,29 @@
         <![endif]-->
 </head>
 
-<body>
+<body class="tapp-body">
 
+
+
+    <!-- Results / Output -->
+    <div id="tappHideOutput">
+        <span>Close Code Editor</span>
+    </div>
+    <div id="tappOutput" contenteditable="true" spellcheck="false"></div>
+
+
+
+    <!--
+        Toast Notification
+    -->
+    <div id="tappToast">
+        Click on an element you would like to animate.
+    </div>
+
+
+    <!--
+        Style Containers
+    -->
     <style id="styleContainer"></style>
     <style id="targetCSSContainer"></style>
     <style id="stageCSSContainer"></style>
@@ -43,12 +64,11 @@
 
         <div class="nav-buttons">
 
-            <button class="btn small noicon" id="editTargetCSS">
-                <i class="far fa-bullseye"></i>
+            <button class="btn small" id="editTargetCSS">
                 <span>Edit Target CSS</span>
             </button>
-            <button class="btn small noicon" id="editStageCSS">
-                <i class="far fa-plus"></i>
+
+            <button class="btn small" id="editStageCSS">
                 <span>Edit Stage CSS</span>
             </button>
 
@@ -58,7 +78,6 @@
 
     <!-- Floating button to close all text editors  -->
     <div class="btn red" id="hideEditors">
-        <i class="far fa-times"></i>
         <span>Close Code Editor</span>
     </div>
 
@@ -102,14 +121,6 @@ background-color: white;
 margin: 0 auto;</div>
 
 
-
-
-
-        <!-- Results -->
-        <div class="canvas-editor" id="outputCSS" contenteditable="true" spellcheck="false"></div>
-
-
-
         <!-- Actual canvas  -->
         <div class="tapp-canvas">
 
@@ -143,16 +154,14 @@ margin: 0 auto;</div>
 
         <hr/>
 
-        <button id="newProperty" class="btn noicon">
-            <i class="far fa-plus"></i>
+        <button id="newProperty" class="btn">
             <span>Add CSS Property</span>
         </button>
 
         <hr/>
 
-        <button id="newProperty" class="btn noicon red" onclick="deleteCurrentStep()">
-            <i class="far fa-trash-alt"></i>
-            <span class="btn-fix">Delete Keyframe at&nbsp;<b class="tapp-current-step"></b>%</span>
+        <button id="deleteKeyframePos" class="btn red">
+            <span class="tapp-btn-fix">Delete Keyframe at&nbsp;<b class="tapp-current-step"></b>%</span>
         </button>
 
         <div class="sidebar-spacer"></div>
@@ -164,7 +173,7 @@ margin: 0 auto;</div>
         <div id="tappAnimationPropertyList" class="tapp-property-list">
             <div class="tapp-prop">
                 <div class="editable-input noedit" contenteditable="false">animation: yourAnimation</div>
-                <div class="editable-input prop-value" onclick="stopAnimation();" contenteditable="true" placeholder="3s" spellcheck="false" id="animationProperties">3s infinite ease-in-out;</div>
+                <div class="editable-input prop-value" contenteditable="true" placeholder="3s" spellcheck="false" id="animationProperties">3s infinite ease-in-out;</div>
             </div>
         </div>
 
@@ -179,20 +188,17 @@ margin: 0 auto;</div>
     <div class="tapp-timeline">
 
         <div class="tapp-timeline-nav">
-            <button class="btn small noicon" id="startAnimationButton" onclick="startAnimation();">
-                <i class="fas fa-play"></i>
+            <button class="btn small" id="startAnimationButton">
                 <span>Start Animation</span>
             </button>
 
-            <button class="btn small red icon-stop reverse" id="stopAnimationButton" onclick="stopAnimation();">
-                <i class="far fa-spinner-third fa-spin"></i>
+            <button class="btn small red" id="stopAnimationButton">
                 <span>Stop Animation</span>
             </button>
 
             <div class="timeline-nav-spacer"></div>
 
-            <button class="btn small green noicon" onclick="showOutput();">
-                <i class="far fa-code"></i>
+            <button class="btn small green" id="showOutputButton">
                 <span>Show Output CSS</span>
             </button>
 

@@ -10,7 +10,7 @@
     left: 0;
     box-sizing: border-box;
     padding: 0 20px;
-    background-color: fade(@white, 94%);
+    background-color: fade(@white, 95%);
     box-shadow: @extraLightBaseShadow;
     height: 175px;
     transition: 0.2s;
@@ -63,7 +63,7 @@
             background-color: fade(@blue, 25%);
             top: 10%;
             border-radius: 3px;
-            z-index: 50;
+            z-index: 500000000;
             margin-left: -0.3%;
 
             &.active{
@@ -94,7 +94,7 @@
                 text-align: center;
                 opacity: 0;
                 pointer-events: none;
-                z-index: 100;
+                z-index: 1000000000;
             }
 
             &:hover{
@@ -141,7 +141,7 @@
             // border-radius: 3px;
             pointer-events: none;
             opacity: 1;
-            z-index: 20;
+            z-index: 200000000;
             overflow: visible;
             box-shadow: @lightBaseShadow;
             opacity: 0;
@@ -153,6 +153,7 @@
                 justify-content: center;
                 padding-left: 6px;
                 pointer-events: none;
+                white-space: nowrap;
                 font-size: 14px;
                 font-weight: 700;
                 color: @black;

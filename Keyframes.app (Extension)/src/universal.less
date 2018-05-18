@@ -1,0 +1,154 @@
+// main: ./inject/styles/inject.less
+
+// Universal UI Styles
+// Universal UI Styles
+// Universal UI Styles
+.ui-button{
+    background-color:white;
+    box-sizing: border-box;
+    font-size: 13px;
+    letter-spacing: 0;
+    line-height: auto;
+    font-weight: 900;
+    padding: 12px 0;
+    border-radius: 4px;
+    transition: 0.15s;
+    box-shadow: @baseShadow;
+    color: @darkertext;
+    margin-right: 8px;
+
+    &:hover{
+        cursor: pointer;
+        box-shadow: @hoverShadow;
+        transition: 0.15s;
+    }
+
+    &.active,
+    &:disabled{
+        z-index: -1;
+    }
+
+    &.active:hover{
+        cursor: default !important;
+        box-shadow: @baseShadow !important;
+        top: 0;
+        margin-bottom: 0;
+    }
+    &.active:after{
+        content: '\f122';
+        line-height: 0;
+        height: 0px;
+        padding-left: 4px;
+        display: inline-block;
+        font-family: 'Ionicons';
+    }
+}
+
+
+// Draggable
+.drag-enabled{
+    border-bottom: 2px dashed rgba(0,0,50,0.15);
+    &:hover{
+        cursor: move;
+        background-color: fade(@blue, 6%) !important;
+    }
+    &:active{
+        background-color: #ffffff !important;
+    }
+}
+
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+.dragged {
+  position: absolute;
+  opacity: 0.4;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 25px;
+  box-shadow: 0 5px 30px 0 rgba(0,0,60,0.25), 0px 1px 3px 0 rgba(0,0,80,0.25);
+  z-index: 2000;
+}
+
+.sortable .placeholder {
+  position: relative;
+  /** More li styles **/
+}
+.sortable .placeholder:before {
+  position: absolute;
+  box-shadow: @baseShadow;
+  /** Define arrowhead **/
+  content: "\f10b";
+  font-family: 'ionicons';
+  color: white;
+  height: 30px;
+  width: 30px;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 30px;
+  background-color: @blue;
+  z-index: 500;
+  border-radius: 50%;
+  font-size: 22px;
+  margin-left: -36px;
+}
+sortable ul{
+    list-style: none;
+}
+
+
+
+
+// Ceev Plus Badge
+.ceev-plus-badge:after{
+    .plusbadgestyling;
+}
+.ceev-themepicker-theme.ceev-plus-badge:after{
+  margin-top: -28px;
+  margin-left: 48px;
+}
+.ceev-colorpicker-btn.ceev-plus-badge:after{
+  margin-top: 4px;
+  margin-left: 1px;
+}
+
+.plusbadgestyling{
+    content: 'plus+';
+    display: block;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10.5px;
+    height: 16px;
+    width: 35px;
+    line-height: 15px;
+    border-radius: 3px;
+    text-transform:none;
+    text-align:center;
+    letter-spacing: 0.5px;
+    color: white;
+    background-color: #FFB35D;
+    position:absolute;
+    margin: 0;
+    box-shadow: 0 1px 10px 0 rgba(0,0,60,0.2);
+}
+
+// Animations
+// Animations
+// Animations
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-3px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}

@@ -157,19 +157,12 @@ function changeStep(percent){
 // Delete Step
 // Delete Step
 // Delete Step
-function deleteCurrentStep(){
+$("#deleteKeyframePos").click(function(){
     var stepToDelete = currentStep;
-
     changeStep(0);
-
     delete transitions[stepToDelete];
-
     changeStep(0);
-
-
-
-    console.log(transitions);
-}
+});
 
 
 
@@ -201,19 +194,20 @@ $("#timelineBody").click(function(){
 // Show code editors
 // Show code editors
 $("#editTargetCSS").click(function(){
-    $(".tapp-top-nav, .tapp-sidebar, .tapp-timeline").addClass("modal-blur");
+    $(".tapp-top-nav, .tapp-sidebar, .tapp-timeline").addClass("tapp-lose-focus");
     $("#targetCSSCode").css('display','block');
     $("#hideEditors").css('display','flex');
 });
 $("#editStageCSS").click(function(){
-    $(".tapp-top-nav, .tapp-sidebar, .tapp-timeline").addClass("modal-blur");
+    $(".tapp-top-nav, .tapp-sidebar, .tapp-timeline").addClass("tapp-lose-focus");
     $("#stageCSSCode").css('display','block');
     $("#hideEditors").css('display','flex');
 });
 $("#hideEditors").click(function(){
     $(".canvas-editor").css('display','none');
+    $("#tappOutput").css('display','none');
     $("#hideEditors").css('display','none');
-    $(".tapp-top-nav, .tapp-sidebar, .tapp-timeline").removeClass("modal-blur");
+    $(".tapp-top-nav, .tapp-sidebar, .tapp-timeline").removeClass("tapp-lose-focus");
 
 });
 
@@ -222,38 +216,43 @@ $("#hideEditors").click(function(){
 // Show Output CSS
 // Show Output CSS
 // Show Output CSS
-function showOutput(){
+$("#showOutputButton").click(function(){
 
-    $("#outputCSS").empty();
+        $("#tappOutput").empty();
 
-    // Tell people to follow me on Twitter
-    $("#outputCSS").append("/* I hope this was helpful! */\n");
-    $("#outputCSS").append("/* Follow me on Twitter 🐤 <a href='https://twitter.com/sleumasm' target='_blank'>@sleumasm</a> to see what I'm up to. */\n");
-    $("#outputCSS").append("/* Also check out my other project I'm working on - <a href='https://ceev.io' target='_blank'>Ceev.io</a>. A pretty cool online resume creator 📃. */\n\n\n");
-
-
-    $("#outputCSS").append("/* Your animation code is below! 👇👇👇 */\n");
-    $("#outputCSS").append("___________________________________________\n\n\n");
-
-    $("#outputCSS").append("@keyframes yourAnimation{\n");
-
-    $.each(transitions, function (key, val) {
-        $("#outputCSS").append("    " + key + "%{\n        " + val.replace(/;/g, '; \n        ') + "}\n");
-    });
-    $("#outputCSS").append("}\n\n")
-    $("#outputCSS").append(".elementToAnimate{\n    animation: yourAnimation " + $("#animationProperties").text() + "\n}")
-
-    $("#resultsModalLightbox").css('display','block');
-    $("#resultsModal").css('display','block');
+        // Tell people to follow me on Twitter
+        $("#tappOutput").append("/* I hope this was helpful! */\n");
+        $("#tappOutput").append("/* Follow me on Twitter 🐤 <a href='https://twitter.com/sleumasm' target='_blank'>@sleumasm</a> to see what I'm up to. */\n");
+        $("#tappOutput").append("/* Also check out my other project I'm working on - <a href='https://ceev.io' target='_blank'>Ceev.io</a>. A pretty cool online resume creator 📃. */\n\n\n");
 
 
-    // Actual Show Output
-    $(".tapp-top-nav, .tapp-sidebar, .tapp-timeline").addClass("modal-blur");
-    $("#outputCSS").css('display','block');
-    $("#hideEditors").css('display','flex');
+        $("#tappOutput").append("/* Your animation code is below! 👇👇👇 */\n");
+        $("#tappOutput").append("___________________________________________\n\n\n");
+
+        $("#tappOutput").append("@keyframes yourAnimation{\n");
+
+        $.each(transitions, function (key, val) {
+            $("#tappOutput").append("    " + key + "%{\n        " + val.replace(/;/g, '; \n        ') + "}\n");
+        });
+        $("#tappOutput").append("}\n\n")
+        $("#tappOutput").append(".elementToAnimate{\n    animation: yourAnimation " + $("#animationProperties").text() + "\n}")
 
 
-}
+        // Actual Show Output
+        $(".tapp-top-nav, .tapp-sidebar, .tapp-timeline").addClass("tapp-lose-focus");
+        $("#tappOutput").css('display','block');
+        $("#hideEditors").css('display','flex');
+
+})
+
+
+// Move Onclicks to js
+$("#animationProperties, #stopAnimationButton").click(function(){
+    stopAnimation();
+});
+$("#startAnimationButton").click(function(){
+    startAnimation();
+});
 
 // Watch for changes on contenteditable
 // Trigger style update
