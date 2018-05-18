@@ -18,7 +18,6 @@
 // Buttons
 @btnHeight: 36px;
 @btnHeight-small: 26px;
-@btnHeight-big: 46px;
 
 .tapp-sidebar .btn,
 .tapp-timeline .btn,
@@ -55,9 +54,6 @@
         height: @btnHeight;
         box-sizing: border-box;
         padding-bottom: 1.5px;
-    }
-    // Button Text
-    span{
         font-weight: 500;
         font-size: 13px;
         flex-grow: 3;
@@ -82,19 +78,6 @@
             padding-bottom: 1px;
             box-sizing: border-box;
             margin: 0 5px;
-        }
-    }
-    &.big{
-        padding: 0px 17px;
-        // border-radius: 23px;
-        @extraLightBaseShadow;
-        span{
-            height: @btnHeight-big;
-            font-size: 112%;
-        }
-        span{
-            margin: 0 10px;
-            padding-bottom: 1px;
         }
     }
 
@@ -156,33 +139,6 @@
 
     }
 
-    &.transparent{
-        padding-left: 5px;
-        padding-right: 5px;
-        background: transparent;
-        background-color: transparent;
-        color: fade(@black, 80%);
-        transition: @transition;
-        box-shadow: none;
-        span{
-            transition: @transition;
-        }
-        &:hover:not(:disabled){
-            box-shadow: none;
-            color: @black;
-            background: transparent;
-            background-color: transparent;
-            border: none;
-            span{
-                transition: @transition;
-                text-decoration: underline;
-            }
-        }
-        // Disabled
-        &:disabled{opacity: 0.35;}
-    }
-
-    // Reverse icon and arrow
     // Full width button
     &.full{
         width: 100%;
