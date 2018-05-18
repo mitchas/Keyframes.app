@@ -1,0 +1,221 @@
+// main: ../app.less
+
+.tapp-timeline{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    padding: 0 20px;
+    background-color: fade(@white, 94%);
+    box-shadow: @extraLightBaseShadow;
+    height: 175px;
+    transition: 0.2s;
+
+    // Top bar with buttons above timeline
+    .tapp-timeline-nav{
+        display: flex;
+        flex-grow: 3;
+        box-sizing: border-box;
+        padding: 15px 0;
+
+        .timeline-nav-spacer{
+            display: block;
+            flex-grow: 3;
+        }
+
+        .btn{
+            margin-right: 15px;
+        }
+
+        // Initially hide stop animation button
+        #stopAnimationButton{
+            display: none;
+        }
+    }
+
+
+    // Timeline Body
+    // Timeline Body
+    // Timeline Body
+    #timelineBody{
+        display: block;
+        width: 100%;
+        background-color: @bg;
+        background-color: lighten(#e0eafc, 4%);
+        height: 76px;
+        border: 1px solid @borderColor;
+        box-shadow: @extraLightBaseShadow;
+        margin: 0 auto;
+        box-sizing: border-box;
+        position: relative;
+        border-radius: 3px;
+
+        // Step markers
+        .timeline-step{
+            display: block;
+            position: absolute;
+            height: 80%;
+            width: 0.6%;
+            background-color: fade(@blue, 25%);
+            top: 10%;
+            border-radius: 3px;
+            z-index: 50;
+            margin-left: -0.3%;
+
+            &.active{
+                background-color: @blue;
+            }
+
+            label{
+                font-size: 13.5px;
+                font-weight: 500;
+                letter-spacing: 0.25px;
+                background-color: @blue;
+                color: @white;
+                box-sizing: border-box;
+                text-align: center;
+                border-radius: 50%;
+                width: 34px;
+                height: 34px;
+                box-shadow: @extraLightBaseShadow;
+                margin-left: -12.5px;
+                margin-top: 55px;
+                display: block;
+                transition: 0.15s;
+                font-family: @mono;
+                display: flex;
+                position: absolute;
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                opacity: 0;
+                pointer-events: none;
+                z-index: 100;
+            }
+
+            &:hover{
+                cursor: pointer;
+                background-color: @blue;
+                label{
+                    opacity: 1;
+                    transition: 0.15s;
+                }
+            }
+        }
+
+
+        // Moving tracker
+        #timelineTracker{
+            display: block;
+            height: 100%;
+            width: 10px;
+            background-color: red;
+            position: absolute;
+            margin-left: -5px;
+            left: 0;
+            background-color: @red;
+            // border-radius: 5px;
+            pointer-events: none;
+            opacity: 0;
+
+            &.animate-timeline-tracker{
+                opacity: 1;
+            }
+        }
+
+        // Marker shows on hover to create new
+        #timelineMarker{
+            display: block;
+            height: 100%;
+            width: 1%;
+            max-width: 1%;
+            position: absolute;
+            margin-left: -0.8%;
+            left: 0;
+            transition: all 0.05s linear, opacity 0.2s ease;
+            background-color: @green;
+            // border-radius: 3px;
+            pointer-events: none;
+            opacity: 1;
+            z-index: 20;
+            overflow: visible;
+            box-shadow: @lightBaseShadow;
+            opacity: 0;
+
+            b{
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding-left: 6px;
+                pointer-events: none;
+                font-size: 14px;
+                font-weight: 700;
+                color: @black;
+                font-family: @poppins;
+                letter-spacing: 0.25px;
+            }
+        }
+
+        &:hover:not(.timeline-step){
+            cursor:copy;
+            #timelineMarker{
+                transition: all 0.05s linear, opacity 0.2s ease;
+                opacity: 1;
+            }
+        }
+    }
+
+    // Timeline Footer
+    // Timeline Footer
+    // Timeline Footer
+    .timeline-footer{
+        display: flex;
+        justify-content: space-between;
+        box-sizing: border-box;
+        padding: 10px 0 15px 0;
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.75px;
+        color: @lightesttext;
+
+        .small{
+            font-size: 10px;
+            padding-top: 2px;
+            font-weight: 600;
+            a{
+                color: @blue;
+                text-decoration: none;
+                opacity: 0.75;
+
+                &:hover{
+                    cursor: pointer;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+
+@keyframes trackerAnimation {
+    0%{
+        left: 0;
+        opacity: 0;
+    }
+    8%{
+        opacity: 1;
+    }
+    92%{
+        opacity: 1;
+    }
+    100%{
+        left: 100%;
+        opacity: 0;
+    }
+}

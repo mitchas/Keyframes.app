@@ -1,0 +1,39 @@
+// main: ../app.less
+
+.tapp-top-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 0 25px;
+    position: fixed;
+    width: 100%;
+    width: calc(~'100% - 300px');
+    top: 0;
+    left: 0;
+    height: 50px;
+    z-index: 50;
+    transition: 0.2s;
+
+    .nav-logo{
+        flex-grow: 3;
+        box-sizing: border-box;
+        padding: 8px 0 4px 0;
+
+        img{
+            height: 100%;
+            width: auto;
+        }
+    }
+
+    .nav-buttons{
+        box-sizing: border-box;
+        height: 100%;
+        padding: 11px 0;
+
+        .btn{
+            margin-left: 15px;
+        }
+    }
+
+}

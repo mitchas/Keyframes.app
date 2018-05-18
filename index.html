@@ -1,0 +1,218 @@
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+
+    <title>Keyframes.app</title>
+    <meta name="description" content="">
+    <meta name="author" content="Mitch Samuels">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="icon" href="./media/favicon.png" type="image/png"/>
+
+    <link rel="stylesheet" href="styles/app.css">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-oi8o31xSQq8S0RpBcb4FaLB8LJi9AT8oIdmS1QldR8Ui7KUQjNAnDlJjp55Ba8FG" crossorigin="anonymous">
+
+    <!--[if lt IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+        <![endif]-->
+</head>
+
+<body>
+
+    <style id="styleContainer"></style>
+    <style id="targetCSSContainer"></style>
+    <style id="stageCSSContainer"></style>
+
+
+
+    <!--
+        Top Nav
+        Top Nav
+        Top Nav
+    -->
+    <div class="tapp-top-nav">
+
+        <div class="nav-logo">
+            <img src="./media/keyframes-200.png"/>
+        </div>
+
+        <div class="nav-buttons">
+
+            <button class="btn small noicon" id="editTargetCSS">
+                <i class="far fa-bullseye"></i>
+                <span>Edit Target CSS</span>
+            </button>
+            <button class="btn small noicon" id="editStageCSS">
+                <i class="far fa-plus"></i>
+                <span>Edit Stage CSS</span>
+            </button>
+
+        </div>
+    </div>
+
+
+    <!-- Floating button to close all text editors  -->
+    <div class="btn red" id="hideEditors">
+        <i class="far fa-times"></i>
+        <span>Close Code Editor</span>
+    </div>
+
+    <!--
+        Workspace
+        Workspace
+        Workspace
+    -->
+    <div class="tapp-workspace">
+
+
+
+        <!--
+        TARGET ELEMENT CSS
+        TARGET ELEMENT CSS
+        TARGET ELEMENT CSS
+        -->
+        <div class="canvas-editor" id="targetCSSCode" contenteditable="true" spellcheck="false">/* Styles for the element being animated */
+
+display: block;
+width: 70px;
+height: 70px;
+background-color: SlateBlue;
+border-radius: 3px;
+margin: 0 auto;</div>
+
+        <!--
+        STAGE CSS
+        STAGE CSS
+        STAGE CSS
+        -->
+        <div class="canvas-editor" id="stageCSSCode" contenteditable="true" spellcheck="false">/* Styles for the white stage/container element */
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+text-align: center;
+width: 80%;
+height: 80%;
+background-color: white;
+margin: 0 auto;</div>
+
+
+
+
+
+        <!-- Results -->
+        <div class="canvas-editor" id="outputCSS" contenteditable="true" spellcheck="false"></div>
+
+
+
+        <!-- Actual canvas  -->
+        <div class="tapp-canvas">
+
+
+            <div id="transitionsTargetElement"></div>
+
+        </div>
+
+    </div>
+
+
+    <!--
+        Sidebar
+        Sidebar
+        Sidebar
+    -->
+    <div class="tapp-sidebar">
+        <div class="ts-header">
+            CSS Properties
+            at <span class="tapp-current-step">0</span>%
+        </div>
+
+
+
+        <div id="tappPropertyList" class="tapp-property-list">
+            <div class="tapp-prop">
+                <div class="prop-input prop-name" contenteditable="true" placeholder="transform:" spellcheck="false" onchange="updateTargetStyles();"></div>
+                <div class="prop-input prop-value" contenteditable="true" placeholder="rotate(180deg);" spellcheck="false" onchange="updateTargetStyles();"></div>
+            </div>
+        </div>
+
+        <hr/>
+
+        <button id="newProperty" class="btn noicon">
+            <i class="far fa-plus"></i>
+            <span>Add CSS Property</span>
+        </button>
+
+        <hr/>
+
+        <button id="newProperty" class="btn noicon red" onclick="deleteCurrentStep()">
+            <i class="far fa-trash-alt"></i>
+            <span class="btn-fix">Delete Keyframe at&nbsp;<b class="tapp-current-step"></b>%</span>
+        </button>
+
+        <div class="sidebar-spacer"></div>
+
+
+        <div class="ts-header">
+            Animation Properties
+        </div>
+        <div id="tappAnimationPropertyList" class="tapp-property-list">
+            <div class="tapp-prop">
+                <div class="editable-input noedit" contenteditable="false">animation: yourAnimation</div>
+                <div class="editable-input prop-value" onclick="stopAnimation();" contenteditable="true" placeholder="3s" spellcheck="false" id="animationProperties">3s infinite ease-in-out;</div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <!--
+        Timeline/Bottom
+        Timeline/Bottom
+    -->
+    <div class="tapp-timeline">
+
+        <div class="tapp-timeline-nav">
+            <button class="btn small noicon" id="startAnimationButton" onclick="startAnimation();">
+                <i class="fas fa-play"></i>
+                <span>Start Animation</span>
+            </button>
+
+            <button class="btn small red icon-stop reverse" id="stopAnimationButton" onclick="stopAnimation();">
+                <i class="far fa-spinner-third fa-spin"></i>
+                <span>Stop Animation</span>
+            </button>
+
+            <div class="timeline-nav-spacer"></div>
+
+            <button class="btn small green noicon" onclick="showOutput();">
+                <i class="far fa-code"></i>
+                <span>Show Output CSS</span>
+            </button>
+
+        </div>
+
+        <div id="timelineBody">
+            <div id='timelineMarker'>
+                <b>50%</b>
+            </div>
+        </div>
+
+        <div class="timeline-footer">
+            <span>Timeline</span>
+            <span class="small">Made by <a href="https://mitch.works" target="_blank">mitch.works</a> / <a href="https://twitter.com/sleumasm" target="_blank">@sleumasm</a></span>
+            <span>Click to add new step</span>
+        </div>
+    </div>
+
+
+    <script src="src/scripts/vendor/jquery-3.2.1.min.js"></script>
+    <script src="src/scripts/onload.js"></script>
+</body>
+</html>

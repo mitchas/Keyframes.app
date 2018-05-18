@@ -1,0 +1,68 @@
+// main: ../app.less
+
+.tapp-workspace{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 50px 300px 175px 0;
+    position: relative;
+
+    .tapp-canvas{
+        box-shadow: @extraLightBaseShadow;
+        position: relative;
+    }
+
+
+
+    // Editors that float above the canvas
+    .canvas-editor{
+        display: block;
+        box-sizing: border-box;
+        padding: 25px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 50;
+        width: 100%;
+        height: 100%;
+        background-color: fade(@white, 30%);
+        text-align: left;
+        color: black;
+        font-family: @mono;
+        font-weight: 500;
+        font-size: 14px;
+        letter-spacing: 0.25px;
+        line-height: 20px;
+        white-space: pre;
+        display: none;
+        overflow: auto;
+        border-top-left-radius: 0;
+
+        &#outputCSS{
+            font-size: 13px;
+            line-height: 18px;
+        }
+    }
+}
+
+
+
+// Floating button to close editor
+#hideEditors{
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    width: 200px;
+    z-index: 1000;
+    margin-left: -100px;
+    justify-content: center;
+    display: none;
+
+    span{
+        flex-grow: 0;
+    }
+}

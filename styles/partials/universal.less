@@ -1,0 +1,283 @@
+// main: ../app.less
+
+
+// HR
+// HR
+// HR
+hr{
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    height: 1px;
+    background-color: transparent;
+    margin: 5px 0 10px 0;
+}
+
+// Buttons
+// Buttons
+// Buttons
+@btnHeight: 36px;
+@btnHeight-small: 26px;
+@btnHeight-big: 46px;
+a.btn,
+.btn{
+    border: none;
+    // border-radius: 18px;
+    border-radius: 6px;
+    padding: 1.5px 15px 0px 15px;
+    transform: translateY(0px);
+    font-family: @poppins;
+    background-color: @blue;
+    color: white;
+    display: inline-flex;
+    flex-direction: row;
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+    transition: box-shadow 0.25s, background-color 0.25s, transform 0.1s !important;
+    box-shadow: @extraLightBaseShadow;
+
+    &:hover{
+        transition: box-shadow 0.25s, background-color 0.25s, transform 0.1s !important;
+    }
+
+    i, span, &:after{
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        height: 100%;
+        justify-content: center;
+        height: @btnHeight;
+        box-sizing: border-box;
+        padding-bottom: 1.5px;
+    }
+    // Button Icon
+    i{
+        font-size: 16px;
+    }
+    // Button Text
+    span{
+        font-weight: 500;
+        font-size: 13px;
+        flex-grow: 3;
+        text-align: left;
+        letter-spacing: 0.45px;
+        line-height: 100%;
+        margin: 0 10px;
+    }
+
+    // Icon after
+    &:after{
+        content: '\f054';
+        font-family: @fontAwesome;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-weight: 500;
+        font-size: 16px;
+        transition: 0.05s;
+        box-sizing: border-box;
+    }
+    // Other after icon options
+    &.icon-check:after{content: '\f00c';}
+    &.icon-up:after{content: '\f077';}
+    &.icon-down:after{content: '\f078';}
+    &.icon-x:after{content: '\f00d';}
+    &.icon-left:after{content: '\f053';}
+    &.icon-stop:after{content: '\f04d'; font-weight: 900; margin-right:1.5px;}
+
+
+    // Button Sizes
+    &.small{
+        padding: 0px 10px;
+        // border-radius: 14px;
+        border-radius: 4px;
+        padding-top: 1px;
+        box-shadow: @extraLightBaseShadow;
+        i, span, &:after{
+            height: @btnHeight-small;
+            font-size: 84%;
+        }
+        span{
+            padding-bottom: 1px;
+            box-sizing: border-box;
+            margin: 0 5px;
+        }
+        i{
+            margin-right: 2px;
+        }
+    }
+    &.big{
+        padding: 0px 17px;
+        // border-radius: 23px;
+        @extraLightBaseShadow;
+        i, span, &:after{
+            height: @btnHeight-big;
+            font-size: 112%;
+        }
+        span{
+            margin: 0 10px;
+            padding-bottom: 1px;
+        }
+    }
+
+    // Hide right icon
+    &.noicon{
+        &:after{
+            display:none;
+        }
+        span{
+            margin-right: 4px;
+        }
+    }
+
+    &:hover:not(:disabled){
+        cursor: pointer;
+        transition: @transition;
+        color: white;
+        background-color: darken(@blue, 4%);
+    }
+
+    // Disabled
+    &:disabled,
+    &.disabled{
+        opacity: 0.45;
+        box-shadow: none !important;
+        transition: box-shadow 0.25s, background-color 0.25s, transform 0.1s !important;
+        &:hover{
+            box-shadow: none !important;
+            transform: none !important;
+            cursor: default;
+        }
+    }
+
+    // Focused
+    &:active{
+        transform: translateY(1px);
+        box-shadow: none !important;
+    }
+
+
+    &.red{
+        background-color: @red;
+        &:hover:not(:disabled){
+            background-color: darken(@red, 4%);
+        }
+    }
+
+    &.green{
+        background-color: @green;
+        color: @black;
+        &:hover:not(:disabled){
+            color: @black;
+            background-color: darken(@green, 8%);
+        }
+    }
+
+    &.black{
+        background-color: @black;
+        &:hover:not(:disabled){
+            background-color: darken(@black, 4%);
+        }
+
+    }
+
+    &.transparent{
+        padding-left: 5px;
+        padding-right: 5px;
+        background-color: transparent;
+        color: fade(@black, 80%);
+        transition: @transition;
+        box-shadow: none;
+        span{
+            transition: @transition;
+        }
+        &:hover:not(:disabled){
+            box-shadow: none;
+            color: @black;
+            background-color: transparent;
+            border: none;
+            span{
+                transition: @transition;
+                text-decoration: underline;
+            }
+        }
+        // Disabled
+        &:disabled{opacity: 0.35;}
+    }
+
+    // Reverse icon and arrow
+    &.reverse{
+        flex-direction: row-reverse;
+    }
+
+    // Full width button
+    &.full{
+        width: 100%;
+    }
+
+    // Centered button
+    &.center{
+        text-align: center;
+        justify-content: center;
+        span{
+            flex-grow: 0;
+        }
+    }
+
+    // Basic buttons on nav
+    // Nav is 58 high
+    &.nav{
+        border-radius: 3px;
+        height: 38px;
+        margin-top: 10px;
+        background-color: #DFE2FF;
+        color: @blue;
+        box-shadow: none;
+        span, i, &:after{
+            font-size: 91%;
+        }
+        i{
+            font-weight: 500;
+        }
+        span{
+            margin: 0 6px;
+            font-weight: 600;
+        }
+
+        &:hover{
+            background-color: lighten(@blue, 36%);
+            color: @blue;
+        }
+
+        &:after{
+            font-weight: 900;
+        }
+
+        &.red{
+            color: @red;
+            box-shadow: none;
+            background-color: lighten(@red, 33%);
+            &:hover{
+                color: @red;
+                background-color: lighten(@red, 36%);
+            }
+        }
+
+        &.black{
+            color: @black;
+            box-shadow: none;
+            background-color: fade(@black, 15%);
+            &:hover{
+                color: @black;
+                background-color: fade(@black, 11%);
+            }
+        }
+    }
+}
+
+a.btn{
+    box-sizing: border-box;
+}

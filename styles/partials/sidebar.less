@@ -1,0 +1,109 @@
+// main: ../app.less
+
+
+// Timeline is 175px high
+
+.tapp-sidebar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 300px;
+    height: 400px;
+    height: calc(~'100vh - 175px');
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: fade(@white, 94%);
+    box-sizing: border-box;
+    padding: 15px;
+    border-bottom: 1px solid @borderColor;
+    box-shadow: @extraLightBaseShadow;
+    transition: 0.2s;
+
+
+    .ts-header{
+        box-sizing: border-box;
+        padding: 0 0 7px 0;
+        font-size: 16px;
+        font-family: @poppins;
+        font-weight: 600;
+        border-bottom: 2px solid @black;
+        width: auto;
+        width: fit-content;
+        margin-bottom: 12px;
+        position: relative;
+    }
+
+    .btn{
+        width: 100%;
+        justify-content: center;
+        span{
+            flex-grow: 0;
+        }
+    }
+
+    .sidebar-spacer{
+        display: block;
+        width: 100%;
+        flex-grow: 3;
+    }
+
+    // List and editor for all properties
+    .tapp-property-list{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        .tapp-prop{
+            display: flex;
+            border: 1px dashed fade(@black, 50%);
+            width: 100%;
+            border-radius: @borderRadius;
+            background-color: lighten(#e0eafc, 4%);
+            margin-bottom: 10px;
+
+
+            .prop-input,
+            .editable-input{
+                box-sizing: border-box;
+                padding: 8px 7px;
+                font-size: 12px;
+                font-family: @mono;
+                font-weight: 500;
+                line-height: 17px;
+                transition: @transition;
+                overflow: hidden;
+                min-width: 100px;
+                white-space:pre-wrap;
+
+                &:hover{
+                    background-color: lighten(#e0eafc, 2.5%);
+                    transition: @transition;
+                    cursor: text;
+                }
+
+                &.noedit:hover{
+                    cursor: default;
+                    background-color: transparent;
+                }
+
+                &:nth-child(1){
+                    border-right: 1px dashed fade(@black, 50%);
+                    color: @blue;
+                    flex-shrink: 1;
+                    max-width: 45%;
+                }
+                &:nth-child(2){
+                    flex-grow: 4;
+                    white-space:pre-line;
+                }
+            }
+            .editable-input[contenteditable=true]:empty:before,
+            .prop-input[contenteditable=true]:empty:before{
+                content: attr(placeholder);
+                color: @lightertext;
+                display: block;
+            }
+        }
+    }
+}
