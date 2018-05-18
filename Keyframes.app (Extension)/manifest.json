@@ -1,9 +1,9 @@
 {
-    "name": "Keyframes - CSS Animation Creator",
+    "name": "Keyframes",
     "short_name": "Keyframes",
-    "version": "0.0.5",
+    "version": "0.0.75",
     "manifest_version": 2,
-    "description": "Create a CSS animation and get the code instantly - directly in your browser.",
+    "description": "On-page CSS Animation creator.",
     "homepage_url": "http://keyframes.app",
     "icons": {
         "16": "icons/keyframes-16.png",

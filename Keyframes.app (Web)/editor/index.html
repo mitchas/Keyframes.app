@@ -1,0 +1,268 @@
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+
+    <title>Keyframes | Editor</title>
+    <meta name="description" content="An insanely simple way to create CSS animations with a visual timeline.">
+    <meta name="author" content="Mitch Samuels">
+    <meta name="keywords" content="CSS, Animations, Generator, Creator, Animate, transition, keyframes, web design, web development, CSS3, HTML5, Jquery, javascript">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--
+        META
+        META
+    -->
+    <meta name="theme-color" content="#3C41FF">
+
+    <!-- Mobile/Bookmark meta -->
+    <meta name="apple-mobile-web-app-title" content="Keyframes"> <!-- New in iOS6 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Social Media Meta -->
+    <!-- Facebook -->
+    <meta property="og:title" content="Insanely Simple CSS Animation Creator.">
+    <meta property="og:description" content="Keyframes gives you a visual timeline to help you create, view, and run animations without having to go back and forth between your browser and editor.">
+    <meta property="og:image" content="https://keyframes.app/media/facebook_promo.jpg">
+    <meta property="og:url" content="https://keyframes.app">
+    <!-- Twitter -->
+    <meta name="twitter:title" content="Insanely Simple CSS Animation Creator.">
+    <meta name="twitter:description" content="Keyframes gives you a visual timeline to help you create, view, and run animations without having to go back and forth between your browser and editor.">
+    <meta name="twitter:image" content=" https://keyframes.app/media/twitter_promo.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:alt" content="Insanely Simple CSS Animations">
+
+    <link rel="icon" href="/media/favicon.png" type="image/png"/>
+    <!--
+        End meta
+        End meta
+        End meta
+    -->
+
+    <link rel="stylesheet" href="/styles/app.css">
+
+    <!--[if lt IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+        <![endif]-->
+
+    <!-- Matomo -->
+    <script type="text/javascript">
+      var _paq = _paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//mitch.works/analytics/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', '2']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <!-- End Matomo Code -->
+
+</head>
+
+<body>
+
+    <!-- Responsive warning for devices under 675px -->
+    <div id="responsiveWarning">
+        <b>Hi!</b>
+        <p>
+            As you can see behind this window, it's a mess.
+            <br/><br/>
+            Because it's a dev tool, I didn't spend the time (at least yet) to make it responsive, since most people don't do dev work on a tiny screen.
+            <br/><br/>
+            Check it out when you're back on your computer, though!
+        </p>
+    </div>
+
+    <!-- Code Window -->
+    <!-- Code Window -->
+    <!-- Code Window -->
+    <div id="kfCodeLightbox"></div>
+    <div class="kf-code-window">
+        <div id="closeKfCodeWindow">&times;</div>
+
+        <!-- Output CSS -->
+        <div class="kf-code-box" id="kfOutput" contenteditable="true" spellcheck="false"></div>
+
+        <!-- Target Element  -->
+        <div class="kf-code-box" id="targetCSSCode" contenteditable="true" spellcheck="false">/* Styles for the element being animated */
+
+display: block;
+width: 70px;
+height: 70px;
+background-color: SlateBlue;
+border-radius: 3px;
+margin: 0 auto;</div>
+
+        <!-- Stage CSS -->
+        <div class="kf-code-box" id="stageCSSCode" contenteditable="true" spellcheck="false">/* Styles for the white stage/container element */
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+text-align: center;
+width: 80%;
+height: 80%;
+background-color: white;
+margin: 0 auto;</div>
+
+    </div>
+    <!-- END CODE WINDOW  -->
+
+
+
+    <!--
+        Toast Notification
+    -->
+    <div id="kfToast">
+        Click on an element you would like to animate.
+    </div>
+
+
+
+
+
+
+
+    <!--
+        Workspace
+        Workspace
+        Workspace
+    -->
+    <div class="kf-workspace">
+
+        <!-- Actual canvas  -->
+        <div class="kf-canvas">
+
+            <div id="transitionsTargetElement"></div>
+
+        </div>
+
+    </div>
+
+
+    <!--
+        Sidebar
+        Sidebar
+        Sidebar
+    -->
+    <div class="kf-sidebar">
+        <div class="ts-header">
+            CSS Properties
+            at <span class="kf-current-step">0</span>%
+        </div>
+
+
+
+        <div id="kfPropertyList" class="kf-property-list">
+            <div class="kf-prop">
+                <div class="prop-input prop-name" contenteditable="true" placeholder="transform:" spellcheck="false" onchange="updateTargetStyles();"></div>
+                <div class="prop-input prop-value" contenteditable="true" placeholder="rotate(180deg);" spellcheck="false" onchange="updateTargetStyles();"></div>
+            </div>
+        </div>
+
+        <div class="kf-btn-right">
+            <button id="kfNewProperty" class="kf-btn">
+                Add CSS Property
+            </button>
+        </div>
+
+        <hr/>
+
+
+        <div class="ts-header">
+            Animation Properties
+        </div>
+        <div id="kfAnimationPropertyList" class="kf-property-list">
+            <div class="kf-prop">
+                <div class="editable-input noedit" contenteditable="false">animation: yourAnimation</div>
+                <div class="editable-input prop-value" contenteditable="true" placeholder="3s" spellcheck="false" id="animationProperties">3s infinite ease-in-out;</div>
+            </div>
+        </div>
+
+
+
+
+        <div class="sidebar-spacer"></div>
+
+        <button id="deleteKeyframePos" class="kf-btn red small full center">
+            Delete Step at&nbsp;<b class="kf-current-step"></b>%
+        </button>
+
+    </div>
+
+
+    <!--
+        Timeline/Bottom
+        Timeline/Bottom
+    -->
+    <div class="kf-timeline">
+
+        <div class="kf-timeline-nav">
+
+            <div class="kftn-left">
+                <button class="kf-btn" id="kfStartAnimationButton">
+                    Start Animation
+                </button>
+
+                <button class="kf-btn red" id="kfStopAnimationButton">
+                    Stop Animation
+                </button>
+            </div>
+
+            <div class="kftn-right">
+
+                <button class="kf-btn" id="editTargetCSS">
+                    Edit Target CSS
+                </button>
+
+                <button class="kf-btn" id="editStageCSS">
+                    Edit Stage CSS
+                </button>
+
+                <button class="kf-btn green" id="showOutputButton">
+                    Show Output CSS
+                </button>
+            </div>
+
+        </div>
+
+        <div id="kfTimelineBody">
+            <div id='timelineMarker'>
+                <b>50%</b>
+            </div>
+        </div>
+
+        <div class="timeline-footer">
+            <span>Click Timeline to add new step</span>
+            <span class="small">Made by <a href="https://mitch.works" target="_blank">mitch.works</a> / <a href="https://twitter.com/sleumasm" target="_blank">@sleumasm</a></span>
+            <span><a href="/">Keyframes.app</a></span>
+        </div>
+    </div>
+
+
+
+
+    <!--
+        Style Containers
+    -->
+    <style id="kfStyleContainer"></style>
+    <style id="targetCSSContainer"></style>
+    <style id="stageCSSContainer"></style>
+
+
+
+    <script src="/src/scripts/vendor/jquery-3.2.1.min.js"></script>
+    <script src="/src/scripts/editor.js"></script>
+
+
+</body>
+</html>
