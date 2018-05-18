@@ -3,7 +3,7 @@
 console.log("UI Preparing...")
 
 // Append CSS File to head
-$("head").append('<link href="' + chrome.extension.getURL('src/inject/ui/keyframes.css') + '" rel="stylesheet">');
+$("head").append('<link href="' + chrome.extension.getURL('src/inject/ui/css/keyframes.css') + '" rel="stylesheet">');
 
 
 // Append timeline
@@ -16,14 +16,14 @@ function keyframesToast(message){
 
 
     setTimeout(function(){
-        $("#tappToast").text(message);
-        $( "#tappToast" ).animate({
+        $("#kfToast").text(message);
+        $( "#kfToast" ).animate({
             left: "0px"
         }, 250, function() {});
     }, 100);
 
     setTimeout(function(){
-        $( "#tappToast" ).animate({
+        $( "#kfToast" ).animate({
             left: "-240px"
         }, 250, function() {});
     }, 4000);
@@ -38,13 +38,13 @@ keyframesToast("Click on an element you would like to animate.");
 var targetElementSelected = false;
 $('body').children().mouseover(function(e){
     if(!targetElementSelected){
-        $(".tapp-element-picker").removeClass("tapp-element-picker");
-        $(e.target).addClass("tapp-element-picker");
+        $(".kf-element-picker").removeClass("kf-element-picker");
+        $(e.target).addClass("kf-element-picker");
     }
   return false;
 }).mouseout(function(e) {
     if(!targetElementSelected){
-        $(this).removeClass("tapp-element-picker");
+        $(this).removeClass("kf-element-picker");
     }
 });
 
@@ -53,7 +53,7 @@ $(document).click(function(event) {
 
     if(!targetElementSelected){
 
-        $(".tapp-element-picker").removeClass("tapp-element-picker");
+        $(".kf-element-picker").removeClass("kf-element-picker");
         event.preventDefault();
         keyframeTargetElement = event.target;
         targetElementSelected = true;

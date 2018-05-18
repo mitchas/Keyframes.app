@@ -1,14 +1,52 @@
-
 <!--
     Toast Notification
+    Toast Notification
+    Toast Notification
 -->
-<div id="tappToast"></div>
-
-
-<!-- Results / Output -->
-<!-- Results / Output -->
-<!-- Results / Output -->
-<div id="tappHideOutput">
-    <span>Close Output</span>
+<div id="kfToast">
+    Click on an element you would like to animate.
 </div>
-<div id="tappOutput" contenteditable="true" spellcheck="false"></div>
+
+
+<!--
+    Style Container
+    Style Container
+    Style Container
+-->
+<style id="kfStyleContainer"></style>
+
+
+<!-- Code Window -->
+<!-- Code Window -->
+<!-- Code Window -->
+    <div id="kfCodeLightbox"></div>
+    <div class="kf-code-window">
+        <div id="closeKfCodeWindow">&times;</div>
+
+        <!-- Output CSS -->
+        <div class="kf-code-box" id="kfOutput" contenteditable="true" spellcheck="false"></div>
+
+        <!-- Target Element  -->
+        <div class="kf-code-box" id="targetCSSCode" contenteditable="true" spellcheck="false">/* Styles for the element being animated */
+
+display: block;
+width: 70px;
+height: 70px;
+background-color: SlateBlue;
+border-radius: 3px;
+margin: 0 auto;</div>
+
+        <!-- Stage CSS -->
+        <div class="kf-code-box" id="stageCSSCode" contenteditable="true" spellcheck="false">/* Styles for the white stage/container element */
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+text-align: center;
+width: 80%;
+height: 80%;
+background-color: white;
+margin: 0 auto;</div>
+
+    </div>
+<!-- END CODE WINDOW  -->

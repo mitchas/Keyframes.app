@@ -16,83 +16,72 @@ waitForTarget();
 
 var runKeyframes = function(){
 
-
     // Set up variables
     var currentStep = 0;
-
-
     // Variable containing all steps
     var transitions = {};
-
-
     // Set initial step to 0
     changeStep('0');
 
-
-
-
     // Add new CSS Property to list
-    var propString = '<div class="tapp-prop"><div class="prop-input" contenteditable="true" placeholder="transform:" spellcheck="false" onchange="updateTargetStyles();"></div><div class="prop-input" contenteditable="true" placeholder="rotate(180deg);" spellcheck="false" onchange="updateTargetStyles();"></div></div>'
-    $("#newProperty").click(function(){
+    var propString = '<div class="kf-prop"><div class="prop-input" contenteditable="true" placeholder="transform:" spellcheck="false" onchange="updateTargetStyles();"></div><div class="prop-input" contenteditable="true" placeholder="rotate(180deg);" spellcheck="false" onchange="updateTargetStyles();"></div></div>'
+    $("#kfNewProperty").click(function(){
         // Stop animation
         stopAnimation();
         // Add new blank property
-        $("#tappPropertyList").append(propString);
+        $("#kfPropertyList").append(propString);
     });
-
 
 
     // Update data on page
     function updatePageData(){
         // Update current step number
-        $(".tapp-current-step").each(function(index) {
+        $(".kf-current-step").each(function(index) {
             $(this).text(currentStep);
         });
     }
 
-    var targetStyles = "";
+
     // Live update CSS on target element
+    var targetStyles = "";
     function updateTargetStyles(){
-
-
         targetStyles = "";
-        $("#tappPropertyList .tapp-prop").each(function(index) {
+        $("#kfPropertyList .kf-prop").each(function(index) {
             targetStyles = targetStyles + $(this).text().replace(/\s/g, "");
         });
-
         $(keyframeTargetElement).attr("style", targetStyles);
     }
 
-
-
     // Append styles to page
     function appendStyles(){
-        $("#styleContainer").empty();
+        $("#kfStyleContainer").empty();
 
-        $("#styleContainer").append("@keyframes yourAnimation{");
+        $("#kfStyleContainer").append("@keyframes yourAnimation{");
 
         $.each(transitions, function (key, val) {
-            $("#styleContainer").append(key + "%{" + val + "}");
+            $("#kfStyleContainer").append(key + "%{" + val + "}");
         });
-        $("#styleContainer").append("}\n")
-        $("#styleContainer").append(".elementToAnimate{ animation: yourAnimation " + $("#animationProperties").text() + "}")
-        $("#styleContainer").append(".animate-timeline-tracker{ animation: trackerAnimation " + $("#animationProperties").text() + "}")
+        $("#kfStyleContainer").append("}\n")
+        $("#kfStyleContainer").append(".elementToAnimate{ animation: yourAnimation " + $("#animationProperties").text() + "}")
+        $("#kfStyleContainer").append(".animate-timeline-tracker{ animation: trackerAnimation " + $("#animationProperties").text() + "}")
     }
 
+
     function startAnimation(){
-        $("#startAnimationButton").css('display','none');
-        $("#stopAnimationButton").css('display','flex');
+        $("#kfStartAnimationButton").css('display','none');
+        $("#kfStopAnimationButton").css('display','flex');
         changeStep(currentStep);
         appendStyles();
         $(keyframeTargetElement).addClass("elementToAnimate");
         $("#timelineTracker").addClass("animate-timeline-tracker");
     }
     function stopAnimation(){
-        $("#stopAnimationButton").css('display','none');
-        $("#startAnimationButton").css('display','flex');
+        $("#kfStopAnimationButton").css('display','none');
+        $("#kfStartAnimationButton").css('display','flex');
         $(keyframeTargetElement).removeClass("elementToAnimate");
         $("#timelineTracker").removeClass("animate-timeline-tracker");
     }
+
 
     // Add a new step
     // Or change to existing
@@ -107,43 +96,33 @@ var runKeyframes = function(){
         }else{
 
             var stepProperties = transitions[newStepPercent].split(";");
-
             // Empty property list, add existing
-            $("#tappPropertyList").empty();
-
+            $("#kfPropertyList").empty();
             $(stepProperties).each(function(index) {
                 if(index == stepProperties.length - 1){
                     return;
                 }else{
-                    var existingProp = '<div class="tapp-prop"><div class="prop-input" contenteditable="true" placeholder="transform:" spellcheck="false" onchange="updateTargetStyles();">' + stepProperties[index].split(":")[0] + ':</div><div class="prop-input" contenteditable="true" placeholder="rotate(180deg);" spellcheck="false" onchange="updateTargetStyles();">' + stepProperties[index].split(":")[1] + ';</div></div>'
-                    $("#tappPropertyList").append(existingProp);
+                    var existingProp = '<div class="kf-prop"><div class="prop-input" contenteditable="true" placeholder="transform:" spellcheck="false" onchange="updateTargetStyles();">' + stepProperties[index].split(":")[0] + ':</div><div class="prop-input" contenteditable="true" placeholder="rotate(180deg);" spellcheck="false" onchange="updateTargetStyles();">' + stepProperties[index].split(":")[1] + ';</div></div>'
+                    $("#kfPropertyList").append(existingProp);
                 }
             });
 
             updateTargetStyles();
         }
 
-
-
-        console.log(transitions);
-
         // Clear timeline before adding again
-        $("#timelineBody").empty();
-
-        $("#timelineBody").append("<div id='timelineTracker'></div>");
-        $("#timelineBody").append("<div id='timelineMarker'><b></b></div>");
+        $("#kfTimelineBody").empty();
+        $("#kfTimelineBody").append("<div id='timelineTracker'></div>");
+        $("#kfTimelineBody").append("<div id='timelineMarker'><b></b></div>");
 
         $.each(transitions, function (key, val) {
-            $("#timelineBody").append("<div class='timeline-step' id='timelineStep" + key + "' onclick='changeStep(" + key + ")' style='left: " + key + "%;'><label>" + key + "</label></div>");
+            $("#kfTimelineBody").append("<div class='timeline-step' id='timelineStep" + key + "' onclick='changeStep(" + key + ")' style='left: " + key + "%;'><label>" + key + "</label></div>");
         });
 
-
         currentStep = newStepPercent;
-
         // Set active class for current timeline step;
         $(".timeline-step").removeClass("active");
         $("#timelineStep" + newStepPercent).addClass("active");
-
 
         updatePageData();
     }
@@ -153,16 +132,12 @@ var runKeyframes = function(){
     // Delete Step
     // Delete Step
     // Delete Step
-    function deleteCurrentStep(){
+    $("#deleteKeyframePos").click(function(){
         var stepToDelete = currentStep;
-
         changeStep(0);
-
         delete transitions[stepToDelete];
-
         changeStep(0);
-
-    }
+    });
 
 
 
@@ -170,9 +145,9 @@ var runKeyframes = function(){
     // Click Timeline
     // Click Timeline
     var hoverNewStepPos = 0;
-    $("#timelineBody").mousemove(function(event){
-        var elementMousePos = event.pageX - $('#timelineBody').offset().left + 5;
-        var elementWidth = $("#timelineBody").width();
+    $("#kfTimelineBody").mousemove(function(event){
+        var elementMousePos = event.pageX - $('#kfTimelineBody').offset().left + 5;
+        var elementWidth = $("#kfTimelineBody").width();
 
         var percentagePos = (elementMousePos / elementWidth * 100);
 
@@ -185,7 +160,7 @@ var runKeyframes = function(){
 
     // Click timeline to add new step
     // NOT on timeline step
-    $("#timelineBody").click(function(){
+    $("#kfTimelineBody").click(function(){
         changeStep(hoverNewStepPos);
     });
 
@@ -194,41 +169,38 @@ var runKeyframes = function(){
     // Show Output CSS
     // Show Output CSS
     // Show Output CSS
-    function showOutput(){
+    $("#showOutputButton").click(function(){
 
-        changeStep(currentStep);
-        
+        $("#kfOutput").empty();
+        // Message
+        $("#kfOutput").append("/* Your animation code is below! 👇👇👇 */\n");
+        $("#kfOutput").append("___________________________________________\n\n\n");
 
-        $("#tappOutput").empty();
-
-        // Tell people to follow me on Twitter
-        $("#tappOutput").append("/* I hope this was helpful! */\n");
-        $("#tappOutput").append("/* Follow me on Twitter 🐤 <a href='https://twitter.com/sleumasm' target='_blank'>@sleumasm</a> to see what I'm up to. */\n");
-        $("#tappOutput").append("/* Also check out my other project I'm working on - <a href='https://ceev.io' target='_blank'>Ceev.io</a>. A pretty cool online resume creator 📃. */\n\n\n");
-
-
-        $("#tappOutput").append("/* Your animation code is below! 👇👇👇 */\n");
-        $("#tappOutput").append("___________________________________________\n\n\n");
-
-        $("#tappOutput").append("@keyframes yourAnimation{\n");
+        $("#kfOutput").append("@keyframes yourAnimation{\n");
 
         $.each(transitions, function (key, val) {
             if(val){
-                $("#tappOutput").append("    " + key + "%{\n        " + val.replace(/;/g, '; \n        ') + "}\n");
+                $("#kfOutput").append("    " + key + "%{\n        " + val.replace(/;/g, '; \n        ') + "}\n");
             }
         });
-        $("#tappOutput").append("}\n\n")
-        $("#tappOutput").append(".elementToAnimate{\n    animation: yourAnimation " + $("#animationProperties").text() + "\n}")
-
+        $("#kfOutput").append("}\n\n")
+        $("#kfOutput").append(".elementToAnimate{\n    animation: yourAnimation " + $("#animationProperties").text() + "\n}")
 
         // Actual Show Output
-        $("#tappOutput").css('display','block');
-        $("#tappHideOutput").css('display','block');
-    }
-    $("#tappHideOutput").click(function(){
-        $("#tappOutput").css('display','none');
-        $("#tappHideOutput").css('display','none');
+        $("#kfOutput").css('display','block');
+        $("#kfCodeLightbox").css('display','block');
+        $(".kf-code-window").css('display','flex');
     })
+
+
+    // Close Lightbox and Editor
+    $("#kfCodeLightbox, #closeKfCodeWindow").click(function(){
+        $("#kfCodeLightbox").css('display','none');
+        $(".kf-code-window").css('display','none');
+        // Hide Output code
+        $("#kfOutput").css('display','none');
+    });
+
 
     // Watch for changes on contenteditable
     // Trigger style update
@@ -263,8 +235,6 @@ var runKeyframes = function(){
     });;
 
 
-
-
     // Convert a bunch of onclicks to scripts
     $("#animationProperties").click(function(){
         stopAnimation();
@@ -272,20 +242,17 @@ var runKeyframes = function(){
     $("#deleteCurrentStep").click(function(){
         deleteCurrentStep();
     })
-    $("#startAnimationButton").click(function(){
+    $("#kfStartAnimationButton").click(function(){
         startAnimation();
     });
-    $("#stopAnimationButton").click(function(){
+    $("#kfStopAnimationButton").click(function(){
         stopAnimation();
     });
-    $("#showOutputButton").click(function(){
-        showOutput();
-    })
 
 
     // Terminate App
     $("#closeKeyframes").click(function(){
-        $(".tapp-sidebar, .tapp-timeline").remove();
+        $(".kf-sidebar, .kf-timeline, #kfCodeLightbox, .kf-code-window, #kfToast").remove();
         stopAnimation();
         $("#styleContainer").empty();
         $(keyframeTargetElement).attr("style", "");

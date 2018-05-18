@@ -22,80 +22,32 @@
         <![endif]-->
 </head>
 
-<body class="tapp-body">
+<body>
 
-
-
-    <!-- Results / Output -->
-    <div id="tappHideOutput">
-        <span>Close Code Editor</span>
-    </div>
-    <div id="tappOutput" contenteditable="true" spellcheck="false"></div>
-
-
-
-    <!--
-        Toast Notification
-    -->
-    <div id="tappToast">
-        Click on an element you would like to animate.
+    <!-- Responsive warning for devices under 675px -->
+    <div id="responsiveWarning">
+        <b>Hi!</b>
+        <p>
+            As you can see behind this window, it's a mess.
+            <br/><br/>
+            Because it's a dev tool, I didn't spend the time (at least yet) to make it responsive, since most people don't do dev work on a tiny screen.
+            <br/><br/>
+            Check it out when you're back on your computer, though!
+        </p>
     </div>
 
+    <!-- Code Window -->
+    <!-- Code Window -->
+    <!-- Code Window -->
+    <div id="kfCodeLightbox"></div>
+    <div class="kf-code-window">
+        <div id="closeKfCodeWindow">&times;</div>
 
-    <!--
-        Style Containers
-    -->
-    <style id="styleContainer"></style>
-    <style id="targetCSSContainer"></style>
-    <style id="stageCSSContainer"></style>
+        <!-- Output CSS -->
+        <div class="kf-code-box" id="kfOutput" contenteditable="true" spellcheck="false"></div>
 
-
-
-    <!--
-        Top Nav
-        Top Nav
-        Top Nav
-    -->
-    <div class="tapp-top-nav">
-
-        <div class="nav-logo">
-            <img src="./media/keyframes-200.png"/>
-        </div>
-
-        <div class="nav-buttons">
-
-            <button class="btn small" id="editTargetCSS">
-                <span>Edit Target CSS</span>
-            </button>
-
-            <button class="btn small" id="editStageCSS">
-                <span>Edit Stage CSS</span>
-            </button>
-
-        </div>
-    </div>
-
-
-    <!-- Floating button to close all text editors  -->
-    <div class="btn red" id="hideEditors">
-        <span>Close Code Editor</span>
-    </div>
-
-    <!--
-        Workspace
-        Workspace
-        Workspace
-    -->
-    <div class="tapp-workspace">
-
-
-
-        <!--
-        TARGET ELEMENT CSS
-        TARGET ELEMENT CSS
-        TARGET ELEMENT CSS
-        -->
-        <div class="canvas-editor" id="targetCSSCode" contenteditable="true" spellcheck="false">/* Styles for the element being animated */
+        <!-- Target Element  -->
+        <div class="kf-code-box" id="targetCSSCode" contenteditable="true" spellcheck="false">/* Styles for the element being animated */
 
 display: block;
 width: 70px;
@@ -104,12 +56,8 @@ background-color: SlateBlue;
 border-radius: 3px;
 margin: 0 auto;</div>
 
-        <!--
-        STAGE CSS
-        STAGE CSS
-        STAGE CSS
-        -->
-        <div class="canvas-editor" id="stageCSSCode" contenteditable="true" spellcheck="false">/* Styles for the white stage/container element */
+        <!-- Stage CSS -->
+        <div class="kf-code-box" id="stageCSSCode" contenteditable="true" spellcheck="false">/* Styles for the white stage/container element */
 
 display: flex;
 flex-direction: column;
@@ -120,10 +68,33 @@ height: 80%;
 background-color: white;
 margin: 0 auto;</div>
 
+    </div>
+    <!-- END CODE WINDOW  -->
+
+
+
+    <!--
+        Toast Notification
+    -->
+    <div id="kfToast">
+        Click on an element you would like to animate.
+    </div>
+
+
+
+
+
+
+
+    <!--
+        Workspace
+        Workspace
+        Workspace
+    -->
+    <div class="kf-workspace">
 
         <!-- Actual canvas  -->
-        <div class="tapp-canvas">
-
+        <div class="kf-canvas">
 
             <div id="transitionsTargetElement"></div>
 
@@ -137,46 +108,48 @@ margin: 0 auto;</div>
         Sidebar
         Sidebar
     -->
-    <div class="tapp-sidebar">
+    <div class="kf-sidebar">
         <div class="ts-header">
             CSS Properties
-            at <span class="tapp-current-step">0</span>%
+            at <span class="kf-current-step">0</span>%
         </div>
 
 
 
-        <div id="tappPropertyList" class="tapp-property-list">
-            <div class="tapp-prop">
+        <div id="kfPropertyList" class="kf-property-list">
+            <div class="kf-prop">
                 <div class="prop-input prop-name" contenteditable="true" placeholder="transform:" spellcheck="false" onchange="updateTargetStyles();"></div>
                 <div class="prop-input prop-value" contenteditable="true" placeholder="rotate(180deg);" spellcheck="false" onchange="updateTargetStyles();"></div>
             </div>
         </div>
 
+        <div class="kf-btn-right">
+            <button id="kfNewProperty" class="kf-btn">
+                Add CSS Property
+            </button>
+        </div>
+
         <hr/>
-
-        <button id="newProperty" class="btn">
-            <span>Add CSS Property</span>
-        </button>
-
-        <hr/>
-
-        <button id="deleteKeyframePos" class="btn red">
-            <span class="tapp-btn-fix">Delete Keyframe at&nbsp;<b class="tapp-current-step"></b>%</span>
-        </button>
-
-        <div class="sidebar-spacer"></div>
 
 
         <div class="ts-header">
             Animation Properties
         </div>
-        <div id="tappAnimationPropertyList" class="tapp-property-list">
-            <div class="tapp-prop">
+        <div id="kfAnimationPropertyList" class="kf-property-list">
+            <div class="kf-prop">
                 <div class="editable-input noedit" contenteditable="false">animation: yourAnimation</div>
                 <div class="editable-input prop-value" contenteditable="true" placeholder="3s" spellcheck="false" id="animationProperties">3s infinite ease-in-out;</div>
             </div>
         </div>
 
+
+
+
+        <div class="sidebar-spacer"></div>
+
+        <button id="deleteKeyframePos" class="kf-btn red small full center">
+            Delete Step at&nbsp;<b class="kf-current-step"></b>%
+        </button>
 
     </div>
 
@@ -185,40 +158,80 @@ margin: 0 auto;</div>
         Timeline/Bottom
         Timeline/Bottom
     -->
-    <div class="tapp-timeline">
+    <div class="kf-timeline">
 
-        <div class="tapp-timeline-nav">
-            <button class="btn small" id="startAnimationButton">
-                <span>Start Animation</span>
-            </button>
+        <div class="kf-timeline-nav">
 
-            <button class="btn small red" id="stopAnimationButton">
-                <span>Stop Animation</span>
-            </button>
+            <div class="kftn-left">
+                <button class="kf-btn" id="kfStartAnimationButton">
+                    Start Animation
+                </button>
 
-            <div class="timeline-nav-spacer"></div>
+                <button class="kf-btn red" id="kfStopAnimationButton">
+                    Stop Animation
+                </button>
+            </div>
 
-            <button class="btn small green" id="showOutputButton">
-                <span>Show Output CSS</span>
-            </button>
+            <div class="kftn-right">
+
+                <button class="kf-btn" id="editTargetCSS">
+                    Edit Target CSS
+                </button>
+
+                <button class="kf-btn" id="editStageCSS">
+                    Edit Stage CSS
+                </button>
+
+                <button class="kf-btn green" id="showOutputButton">
+                    Show Output CSS
+                </button>
+            </div>
 
         </div>
 
-        <div id="timelineBody">
+        <div id="kfTimelineBody">
             <div id='timelineMarker'>
                 <b>50%</b>
             </div>
         </div>
 
         <div class="timeline-footer">
-            <span>Timeline</span>
+            <span>Click Timeline to add new step</span>
             <span class="small">Made by <a href="https://mitch.works" target="_blank">mitch.works</a> / <a href="https://twitter.com/sleumasm" target="_blank">@sleumasm</a></span>
-            <span>Click to add new step</span>
+            <span><a href="https://keyframes.app">Keyframes.app</a></span>
         </div>
     </div>
 
 
+
+
+    <!--
+        Style Containers
+    -->
+    <style id="kfStyleContainer"></style>
+    <style id="targetCSSContainer"></style>
+    <style id="stageCSSContainer"></style>
+
+
+
     <script src="src/scripts/vendor/jquery-3.2.1.min.js"></script>
     <script src="src/scripts/onload.js"></script>
+
+    <!-- Matomo -->
+    <script type="text/javascript">
+      var _paq = _paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//mitch.works/analytics/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', '2']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <!-- End Matomo Code -->
+
 </body>
 </html>

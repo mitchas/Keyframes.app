@@ -1,4 +1,4 @@
-// main: ../app.less
+// main: keyframes.less
 
 .kf-timeline{
     display: flex;
@@ -11,6 +11,8 @@
     box-sizing: border-box;
     padding: 0 20px;
     background-color: fade(@white, 95%);
+    background: linear-gradient(to right, fade(#F4FBFF, 95%), fade(darken(#F4FBFF, 5%), 95%));
+
     box-shadow: @extraLightBaseShadow;
     height: 165px;
     transition: 0.2s;
@@ -187,11 +189,6 @@
         text-transform: uppercase;
         letter-spacing: 0.75px;
         color: @lightesttext;
-
-        a{
-            text-decoration: none;
-            color: @blue;
-        }
 
         .small{
             font-size: 10px;

@@ -1,0 +1,33 @@
+// out: ../keyframes.css, compress: true
+
+@import 'variables.less';
+@import 'misc.less';
+@import 'sidebar.less';
+@import 'timeline.less';
+@import 'universal.less';
+
+
+.kf-sidebar,
+.kf-timeline{
+    z-index: 999999999;
+}
+
+
+// Exit button
+#closeKeyframes{
+    color: fade(@red, 50%);
+    transition: @transition;
+    &:hover{
+        cursor: pointer;
+        color: @red;
+        transition: @transition;
+    }
+}
+
+// Highlight target element
+.kf-element-picker{
+    cursor: pointer;
+    outline: 3px dashed @red;
+    transition: outline 0.075s;
+    background-color: fade(@blue, 20%) !important;
+}

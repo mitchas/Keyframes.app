@@ -18,12 +18,12 @@ var transitions = {};
 
 
 // Add new CSS Property to list
-var propString = '<div class="tapp-prop"><div class="prop-input" contenteditable="true" placeholder="transform:" spellcheck="false" onchange="updateTargetStyles();"></div><div class="prop-input" contenteditable="true" placeholder="rotate(180deg);" spellcheck="false" onchange="updateTargetStyles();"></div></div>'
-$("#newProperty").click(function(){
+var propString = '<div class="kf-prop"><div class="prop-input" contenteditable="true" placeholder="transform:" spellcheck="false" onchange="updateTargetStyles();"></div><div class="prop-input" contenteditable="true" placeholder="rotate(180deg);" spellcheck="false" onchange="updateTargetStyles();"></div></div>'
+$("#kfNewProperty").click(function(){
     // Stop animation
     stopAnimation();
     // Add new blank property
-    $("#tappPropertyList").append(propString);
+    $("#kfPropertyList").append(propString);
 });
 
 
@@ -31,7 +31,7 @@ $("#newProperty").click(function(){
 // Update data on page
 function updatePageData(){
     // Update current step number
-    $(".tapp-current-step").each(function(index) {
+    $(".kf-current-step").each(function(index) {
         $(this).text(currentStep);
     });
 }
@@ -42,7 +42,7 @@ function updateTargetStyles(){
 
 
     targetStyles = "";
-    $("#tappPropertyList .tapp-prop").each(function(index) {
+    $("#kfPropertyList .kf-prop").each(function(index) {
         targetStyles = targetStyles + $(this).text().replace(/\s/g, "");
     });
 
@@ -63,7 +63,7 @@ function appendNewTargetStyles(){
 // Append stage styles on change
 function appendNewStageStyles(){
     $("#stageCSSContainer").empty();
-    $("#stageCSSContainer").append(".tapp-canvas{");
+    $("#stageCSSContainer").append(".kf-canvas{");
     $("#stageCSSContainer").append($("#stageCSSCode").text());
     $("#stageCSSContainer").append("}");
 }
@@ -71,29 +71,29 @@ function appendNewStageStyles(){
 
 // Append styles to page
 function appendStyles(){
-    $("#styleContainer").empty();
+    $("#kfStyleContainer").empty();
 
-    $("#styleContainer").append("@keyframes yourAnimation{");
+    $("#kfStyleContainer").append("@keyframes yourAnimation{");
 
     $.each(transitions, function (key, val) {
-        $("#styleContainer").append(key + "%{" + val + "}");
+        $("#kfStyleContainer").append(key + "%{" + val + "}");
     });
-    $("#styleContainer").append("}\n")
-    $("#styleContainer").append(".elementToAnimate{ animation: yourAnimation " + $("#animationProperties").text() + "}")
-    $("#styleContainer").append(".animate-timeline-tracker{ animation: trackerAnimation " + $("#animationProperties").text() + "}")
+    $("#kfStyleContainer").append("}\n")
+    $("#kfStyleContainer").append(".elementToAnimate{ animation: yourAnimation " + $("#animationProperties").text() + "}")
+    $("#kfStyleContainer").append(".animate-timeline-tracker{ animation: trackerAnimation " + $("#animationProperties").text() + "}")
 }
 
 function startAnimation(){
-    $("#startAnimationButton").css('display','none');
-    $("#stopAnimationButton").css('display','flex');
+    $("#kfStartAnimationButton").css('display','none');
+    $("#kfStopAnimationButton").css('display','flex');
     changeStep(currentStep);
     appendStyles();
     $("#transitionsTargetElement").addClass("elementToAnimate");
     $("#timelineTracker").addClass("animate-timeline-tracker");
 }
 function stopAnimation(){
-    $("#stopAnimationButton").css('display','none');
-    $("#startAnimationButton").css('display','flex');
+    $("#kfStopAnimationButton").css('display','none');
+    $("#kfStartAnimationButton").css('display','flex');
     $("#transitionsTargetElement").removeClass("elementToAnimate");
     $("#timelineTracker").removeClass("animate-timeline-tracker");
 }
@@ -113,32 +113,30 @@ function changeStep(percent){
         var stepProperties = transitions[newStepPercent].split(";");
 
         // Empty property list, add existing
-        $("#tappPropertyList").empty();
+        $("#kfPropertyList").empty();
 
         $(stepProperties).each(function(index) {
             if(index == stepProperties.length - 1){
                 return;
             }else{
-                var existingProp = '<div class="tapp-prop"><div class="prop-input" contenteditable="true" placeholder="transform:" spellcheck="false" onchange="updateTargetStyles();">' + stepProperties[index].split(":")[0] + ':</div><div class="prop-input" contenteditable="true" placeholder="rotate(180deg);" spellcheck="false" onchange="updateTargetStyles();">' + stepProperties[index].split(":")[1] + ';</div></div>'
-                $("#tappPropertyList").append(existingProp);
+                var existingProp = '<div class="kf-prop"><div class="prop-input" contenteditable="true" placeholder="transform:" spellcheck="false" onchange="updateTargetStyles();">' + stepProperties[index].split(":")[0] + ':</div><div class="prop-input" contenteditable="true" placeholder="rotate(180deg);" spellcheck="false" onchange="updateTargetStyles();">' + stepProperties[index].split(":")[1] + ';</div></div>'
+                $("#kfPropertyList").append(existingProp);
             }
         });
 
         updateTargetStyles();
     }
 
-
-
     console.log(transitions);
 
     // Clear timeline before adding again
-    $("#timelineBody").empty();
+    $("#kfTimelineBody").empty();
 
-    $("#timelineBody").append("<div id='timelineTracker'></div>");
-    $("#timelineBody").append("<div id='timelineMarker'><b></b></div>");
+    $("#kfTimelineBody").append("<div id='timelineTracker'></div>");
+    $("#kfTimelineBody").append("<div id='timelineMarker'><b></b></div>");
 
     $.each(transitions, function (key, val) {
-        $("#timelineBody").append("<div class='timeline-step' id='timelineStep" + key + "' onclick='changeStep(" + key + ")' style='left: " + key + "%;'><label>" + key + "</label></div>");
+        $("#kfTimelineBody").append("<div class='timeline-step' id='timelineStep" + key + "' onclick='changeStep(" + key + ")' style='left: " + key + "%;'><label>" + key + "</label></div>");
     });
 
 
@@ -170,9 +168,9 @@ $("#deleteKeyframePos").click(function(){
 // Click Timeline
 // Click Timeline
 var hoverNewStepPos = 0;
-$("#timelineBody").mousemove(function(event){
-    var elementMousePos = event.pageX - $('#timelineBody').offset().left + 5;
-    var elementWidth = $("#timelineBody").width();
+$("#kfTimelineBody").mousemove(function(event){
+    var elementMousePos = event.pageX - $('#kfTimelineBody').offset().left + 5;
+    var elementWidth = $("#kfTimelineBody").width();
 
     var percentagePos = (elementMousePos / elementWidth * 100);
 
@@ -185,7 +183,7 @@ $("#timelineBody").mousemove(function(event){
 
 // Click timeline to add new step
 // NOT on timeline step
-$("#timelineBody").click(function(){
+$("#kfTimelineBody").click(function(){
     changeStep(hoverNewStepPos);
 });
 
@@ -193,22 +191,33 @@ $("#timelineBody").click(function(){
 // Show code editors
 // Show code editors
 // Show code editors
+
+// Close Lightbox and Editor
+$("#kfCodeLightbox, #closeKfCodeWindow").click(function(){
+
+    $("#kfCodeLightbox").css('display','none');
+    $(".kf-code-window").css('display','none');
+
+    // Hide Output code
+    $("#kfOutput").css('display','none');
+    // Hide stage and target CSS
+    $("#targetCSSCode, #stageCSSCode").css('display','none');
+
+
+});
 $("#editTargetCSS").click(function(){
-    $(".tapp-top-nav, .tapp-sidebar, .tapp-timeline").addClass("tapp-lose-focus");
+    $("#kfCodeLightbox").css('display','block');
+    $(".kf-code-window").css('display','flex');
+
+    // Hide Output code
     $("#targetCSSCode").css('display','block');
-    $("#hideEditors").css('display','flex');
 });
 $("#editStageCSS").click(function(){
-    $(".tapp-top-nav, .tapp-sidebar, .tapp-timeline").addClass("tapp-lose-focus");
-    $("#stageCSSCode").css('display','block');
-    $("#hideEditors").css('display','flex');
-});
-$("#hideEditors").click(function(){
-    $(".canvas-editor").css('display','none');
-    $("#tappOutput").css('display','none');
-    $("#hideEditors").css('display','none');
-    $(".tapp-top-nav, .tapp-sidebar, .tapp-timeline").removeClass("tapp-lose-focus");
+    $("#kfCodeLightbox").css('display','block');
+    $(".kf-code-window").css('display','flex');
 
+    // Hide Output code
+    $("#stageCSSCode").css('display','block');
 });
 
 
@@ -218,39 +227,38 @@ $("#hideEditors").click(function(){
 // Show Output CSS
 $("#showOutputButton").click(function(){
 
-        $("#tappOutput").empty();
+    $("#kfOutput").empty();
 
-        // Tell people to follow me on Twitter
-        $("#tappOutput").append("/* I hope this was helpful! */\n");
-        $("#tappOutput").append("/* Follow me on Twitter 🐤 <a href='https://twitter.com/sleumasm' target='_blank'>@sleumasm</a> to see what I'm up to. */\n");
-        $("#tappOutput").append("/* Also check out my other project I'm working on - <a href='https://ceev.io' target='_blank'>Ceev.io</a>. A pretty cool online resume creator 📃. */\n\n\n");
-
-
-        $("#tappOutput").append("/* Your animation code is below! 👇👇👇 */\n");
-        $("#tappOutput").append("___________________________________________\n\n\n");
-
-        $("#tappOutput").append("@keyframes yourAnimation{\n");
-
-        $.each(transitions, function (key, val) {
-            $("#tappOutput").append("    " + key + "%{\n        " + val.replace(/;/g, '; \n        ') + "}\n");
-        });
-        $("#tappOutput").append("}\n\n")
-        $("#tappOutput").append(".elementToAnimate{\n    animation: yourAnimation " + $("#animationProperties").text() + "\n}")
+    // Tell people to follow me on Twitter
+    $("#kfOutput").append("/* I hope this was helpful! */\n");
+    $("#kfOutput").append("/* Follow me on Twitter 🐤 <a href='https://twitter.com/sleumasm' target='_blank'>@sleumasm</a> to see what I'm up to. */\n");
+    $("#kfOutput").append("/* Also check out my other project I'm working on - <a href='https://ceev.io' target='_blank'>Ceev.io</a>. A pretty cool online resume creator 📃. */\n\n\n");
 
 
-        // Actual Show Output
-        $(".tapp-top-nav, .tapp-sidebar, .tapp-timeline").addClass("tapp-lose-focus");
-        $("#tappOutput").css('display','block');
-        $("#hideEditors").css('display','flex');
+    $("#kfOutput").append("/* Your animation code is below! 👇👇👇 */\n");
+    $("#kfOutput").append("___________________________________________\n\n\n");
 
+    $("#kfOutput").append("@keyframes yourAnimation{\n");
+
+    $.each(transitions, function (key, val) {
+        $("#kfOutput").append("    " + key + "%{\n        " + val.replace(/;/g, '; \n        ') + "}\n");
+    });
+    $("#kfOutput").append("}\n\n")
+    $("#kfOutput").append(".elementToAnimate{\n    animation: yourAnimation " + $("#animationProperties").text() + "\n}")
+
+
+    // Actual Show Output
+    $("#kfOutput").css('display','block');
+    $("#kfCodeLightbox").css('display','block');
+    $(".kf-code-window").css('display','flex');
 })
 
 
 // Move Onclicks to js
-$("#animationProperties, #stopAnimationButton").click(function(){
+$("#animationProperties, #kfStopAnimationButton").click(function(){
     stopAnimation();
 });
-$("#startAnimationButton").click(function(){
+$("#kfStartAnimationButton").click(function(){
     startAnimation();
 });
 
