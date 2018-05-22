@@ -9,22 +9,18 @@ $( document ).ready(function() {
 
 });
 
+// Close mobile warning
+$("#responsiveWarning").click(function(){
+    $(this).remove();   
+});
+
 
 // Set up variables
 var currentStep = 0;
 
 // Variable containing all steps
-var transitions = {};
-
-
-// Add new CSS Property to list
-var propString = '<div class="kf-prop"><div class="prop-input" contenteditable="true" placeholder="transform:" spellcheck="false" onchange="updateTargetStyles();"></div><div class="prop-input" contenteditable="true" placeholder="rotate(180deg);" spellcheck="false" onchange="updateTargetStyles();"></div></div>'
-$("#kfNewProperty").click(function(){
-    // Stop animation
-    stopAnimation();
-    // Add new blank property
-    $("#kfPropertyList").append(propString);
-});
+var stepStyles = {};
+var stepValues = {};
 
 
 
@@ -42,14 +38,75 @@ function updateTargetStyles(){
 
 
     targetStyles = "";
-    $("#kfPropertyList .kf-prop").each(function(index) {
-        targetStyles = targetStyles + $(this).text().replace(/\s/g, "");
-    });
 
-    // $("#transitionsTargetElement").css(targetStyles);
+    // Transform props
+    var transformStyles = "";
+    if(!$("#presetRotate").val() && !$("#presetScale").val() && !$("#presetTransX").val() && !$("#presetTransY").val() && !$("#presetSkewX").val() && !$("#presetSkewY").val()){
+        console.log("No transform props;")
+    }else{
+        transformStyles = "transform:";
+        if($("#presetRotate").val()){transformStyles += " rotate(" + $("#presetRotate").val() + ")";}
+        if($("#presetScale").val()){transformStyles += " scale(" + $("#presetScale").val() + ")";}
+        if($("#presetTransX").val()){transformStyles += " translateX(" + $("#presetTransX").val() + ")";}
+        if($("#presetTransY").val()){transformStyles += " translateY(" + $("#presetTransY").val() + ")";}
+        if($("#presetSkewX").val()){transformStyles += " skewX(" + $("#presetSkewX").val() + ")";}
+        if($("#presetSkewY").val()){transformStyles += " skewY(" + $("#presetSkewY").val() + ")";}
+
+        transformStyles += ";";
+        targetStyles += transformStyles;
+    }
+
+    // Colors & Fonts
+    if($("#presetTransOrigin").val()){
+        targetStyles += "transform-origin: " + $("#presetTransOrigin").val() + ";";
+    }
+    // Colors & Fonts
+    if($("#presetBG").val()){
+        targetStyles += "background: " + $("#presetBG").val() + ";";
+    }
+    if($("#presetOpacity").val()){
+        targetStyles += "opacity: " + $("#presetOpacity").val() + ";";
+    }
+    if($("#presetColor").val()){
+        targetStyles += "color: " + $("#presetColor").val() + ";";
+    }
+    if($("#presetFontSize").val()){
+        targetStyles += "font-size: " + $("#presetFontSize").val() + ";";
+    }
+    if($("#presetFontWeight").val()){
+        targetStyles += "font-weight: " + $("#presetFontWeight").val() + ";";
+    }
+
+    // Size & Spacing
+    if($("#presetWidth").val()){
+        targetStyles += "width: " + $("#presetWidth").val() + ";";
+    }
+    if($("#presetHeight").val()){
+        targetStyles += "height: " + $("#presetHeight").val() + ";";
+    }
+    if($("#presetMargin").val()){
+        targetStyles += "margin: " + $("#presetMargin").val() + ";";
+    }
+    if($("#presetPadding").val()){
+        targetStyles += "padding: " + $("#presetPadding").val() + ";";
+    }
+
+    // Border / shadow
+    if($("#presetBorder").val()){
+        targetStyles += "border: " + $("#presetBorder").val() + ";";
+    }
+    if($("#presetShadow").val()){
+        targetStyles += "box-shadow: " + $("#presetShadow").val() + ";";
+    }
+    if($("#presetOutline").val()){
+        targetStyles += "outline: " + $("#presetOutline").val() + ";";
+    }
+
+
+    $("#transitionsTargetElement").attr("style", "");
     $("#transitionsTargetElement").attr("style", targetStyles);
 
-
+    console.log(targetStyles);
 }
 
 
@@ -69,18 +126,32 @@ function appendNewStageStyles(){
 }
 
 
+var animationProperties = "";
 // Append styles to page
 function appendStyles(){
+
+    // Prepare animation properties
+    animationProperties = "";
+    if(!$("#animationDuration").val()){$("#animationDuration").val("3s")}
+    if(!$("#animationIterations").val()){$("#animationIterations").val("infinite")}
+    if(!$("#animationDelay").val()){$("#animationDelay").val("0s")}
+    // 3s infinite ease-in-out
+    animationProperties += $("#animationDuration").val() + " ";
+    animationProperties += $("#animationIterations").val() + " ";
+    animationProperties += $("#animationDelay").val() + " ";
+    animationProperties += $("#animationTiming").val() + ";";
+
+
     $("#kfStyleContainer").empty();
 
     $("#kfStyleContainer").append("@keyframes yourAnimation{");
 
-    $.each(transitions, function (key, val) {
+    $.each(stepStyles, function (key, val) {
         $("#kfStyleContainer").append(key + "%{" + val + "}");
     });
     $("#kfStyleContainer").append("}\n")
-    $("#kfStyleContainer").append(".elementToAnimate{ animation: yourAnimation " + $("#animationProperties").text() + "}")
-    $("#kfStyleContainer").append(".animate-timeline-tracker{ animation: trackerAnimation " + $("#animationProperties").text() + "}")
+    $("#kfStyleContainer").append(".elementToAnimate{ animation: yourAnimation " + animationProperties + "}")
+    $("#kfStyleContainer").append(".animate-timeline-tracker{ animation: trackerAnimation " + animationProperties + "}")
 }
 
 function startAnimation(){
@@ -104,30 +175,85 @@ function changeStep(percent){
 
     var newStepPercent = percent;
     var prevStep = currentStep;
-    transitions[prevStep] = targetStyles;
 
-    if(!transitions[newStepPercent]){
-        transitions[newStepPercent] = targetStyles;
+    stepStyles[prevStep] = targetStyles;
+    stepValues[prevStep] = [
+        $("#presetRotate").val(),
+        $("#presetScale").val(),
+        $("#presetTransX").val(),
+        $("#presetTransY").val(),
+        $("#presetSkewX").val(),
+        $("#presetSkewY").val(),
+        $("#presetTransOrigin").val(),
+        $("#presetBG").val(),
+        $("#presetOpacity").val(),
+        $("#presetColor").val(),
+        $("#presetFontSize").val(),
+        $("#presetFontWeight").val(),
+        $("#presetWidth").val(),
+        $("#presetHeight").val(),
+        $("#presetMargin").val(),
+        $("#presetPadding").val(),
+        $("#presetBorder").val(),
+        $("#presetShadow").val(),
+        $("#presetOutline").val()
+    ];
+
+    // If new step
+    if(!stepStyles[newStepPercent]){
+        stepStyles[newStepPercent] = targetStyles;
+        stepValues[prevStep] = [
+            $("#presetRotate").val(),
+            $("#presetScale").val(),
+            $("#presetTransX").val(),
+            $("#presetTransY").val(),
+            $("#presetSkewX").val(),
+            $("#presetSkewY").val(),
+            $("#presetTransOrigin").val(),
+            $("#presetBG").val(),
+            $("#presetOpacity").val(),
+            $("#presetColor").val(),
+            $("#presetFontSize").val(),
+            $("#presetFontWeight").val(),
+            $("#presetWidth").val(),
+            $("#presetHeight").val(),
+            $("#presetMargin").val(),
+            $("#presetPadding").val(),
+            $("#presetBorder").val(),
+            $("#presetShadow").val(),
+            $("#presetOutline").val()
+        ];
     }else{
 
-        var stepProperties = transitions[newStepPercent].split(";");
+        // Set target element styles form existing step
+        targetStyles = stepStyles[newStepPercent];
 
-        // Empty property list, add existing
-        $("#kfPropertyList").empty();
-
-        $(stepProperties).each(function(index) {
-            if(index == stepProperties.length - 1){
-                return;
-            }else{
-                var existingProp = '<div class="kf-prop"><div class="prop-input" contenteditable="true" placeholder="transform:" spellcheck="false" onchange="updateTargetStyles();">' + stepProperties[index].split(":")[0] + ':</div><div class="prop-input" contenteditable="true" placeholder="rotate(180deg);" spellcheck="false" onchange="updateTargetStyles();">' + stepProperties[index].split(":")[1] + ';</div></div>'
-                $("#kfPropertyList").append(existingProp);
-            }
-        });
+        // Set input vals
+        $("#presetRotate").val(stepValues[newStepPercent][0]),
+        $("#presetScale").val(stepValues[newStepPercent][1]),
+        $("#presetTransX").val(stepValues[newStepPercent][2]),
+        $("#presetTransY").val(stepValues[newStepPercent][3]),
+        $("#presetSkewX").val(stepValues[newStepPercent][4]),
+        $("#presetSkewY").val(stepValues[newStepPercent][5]),
+        $("#presetTransOrigin").val(stepValues[newStepPercent][6]),
+        $("#presetBG").val(stepValues[newStepPercent][7]),
+        $("#presetOpacity").val(stepValues[newStepPercent][8]),
+        $("#presetColor").val(stepValues[newStepPercent][9]),
+        $("#presetFontSize").val(stepValues[newStepPercent][10]),
+        $("#presetFontWeight").val(stepValues[newStepPercent][11]),
+        $("#presetWidth").val(stepValues[newStepPercent][12]),
+        $("#presetHeight").val(stepValues[newStepPercent][13]),
+        $("#presetMargin").val(stepValues[newStepPercent][14]),
+        $("#presetPadding").val(stepValues[newStepPercent][15]),
+        $("#presetBorder").val(stepValues[newStepPercent][16]),
+        $("#presetShadow").val(stepValues[newStepPercent][17]),
+        $("#presetOutline").val(stepValues[newStepPercent][18])
 
         updateTargetStyles();
     }
 
-    console.log(transitions);
+    console.log(stepStyles);
+    console.log(stepValues);
 
     // Clear timeline before adding again
     $("#kfTimelineBody").empty();
@@ -135,17 +261,15 @@ function changeStep(percent){
     $("#kfTimelineBody").append("<div id='timelineTracker'></div>");
     $("#kfTimelineBody").append("<div id='timelineMarker'><b></b></div>");
 
-    $.each(transitions, function (key, val) {
+    $.each(stepStyles, function (key, val) {
         $("#kfTimelineBody").append("<div class='timeline-step' id='timelineStep" + key + "' onclick='changeStep(" + key + ")' style='left: " + key + "%;'><label>" + key + "</label></div>");
     });
-
 
     currentStep = newStepPercent;
 
     // Set active class for current timeline step;
     $(".timeline-step").removeClass("active");
     $("#timelineStep" + newStepPercent).addClass("active");
-
 
     updatePageData();
 }
@@ -158,7 +282,8 @@ function changeStep(percent){
 $("#deleteKeyframePos").click(function(){
     var stepToDelete = currentStep;
     changeStep(0);
-    delete transitions[stepToDelete];
+    delete stepStyles[stepToDelete];
+    delete stepValues[stepToDelete];
     changeStep(0);
 });
 
@@ -227,6 +352,9 @@ $("#editStageCSS").click(function(){
 // Show Output CSS
 $("#showOutputButton").click(function(){
 
+    changeStep(currentStep);
+    appendStyles();
+
     $("#kfOutput").empty();
 
     // Tell people to follow me on Twitter
@@ -240,11 +368,12 @@ $("#showOutputButton").click(function(){
 
     $("#kfOutput").append("@keyframes yourAnimation{\n");
 
-    $.each(transitions, function (key, val) {
-        $("#kfOutput").append("    " + key + "%{\n        " + val.replace(/;/g, '; \n        ') + "}\n");
+    $.each(stepStyles, function (key, val) {
+        $("#kfOutput").append("    " + key + "%{\n        " + val.replace(/\;/g, ';\n        '));
+        $("#kfOutput").append("}\n");
     });
     $("#kfOutput").append("}\n\n")
-    $("#kfOutput").append(".elementToAnimate{\n    animation: yourAnimation " + $("#animationProperties").text() + "\n}")
+    $("#kfOutput").append(".elementToAnimate{\n    animation: yourAnimation " + animationProperties + "\n}")
 
 
     // Actual Show Output
@@ -253,6 +382,13 @@ $("#showOutputButton").click(function(){
     $(".kf-code-window").css('display','flex');
 })
 
+
+
+// Toggle wells on sidebar
+$(".kf-presets-header").click(function(){
+    $(this).next('.kf-preset-well').slideToggle(100);
+    $(this).toggleClass('kf-well-active');
+});
 
 // Move Onclicks to js
 $("#animationProperties, #kfStopAnimationButton").click(function(){

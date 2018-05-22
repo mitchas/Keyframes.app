@@ -11,8 +11,6 @@
     box-sizing: border-box;
     padding: 0 20px;
     background-color: fade(@white, 95%);
-    background: linear-gradient(to right, fade(#F4FBFF, 95%), fade(darken(#F4FBFF, 5%), 95%));
-
     box-shadow: @extraLightBaseShadow;
     height: 165px;
     transition: 0.2s;
@@ -28,6 +26,45 @@
         .kftn-left{
             .kf-btn{
                 margin-right: 10px;
+            }
+        }
+        .kftn-mid{
+            display: flex;
+
+            .kftn-animation-prop{
+                display: flex;
+                padding: 0 6px;
+
+                label{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    font-size: 12px;
+                    font-weight: 600;
+                    text-align: right;
+                    letter-spacing: 0.25px;
+                }
+
+                input,
+                select{
+                    border: 1px solid @borderColor;
+                    width: auto;
+                    padding: 0 4px;
+                    min-width: 0;
+                    font-weight: 600;
+                    width: 40px;
+                    letter-spacing: 0.25px;
+                    border-radius: @borderRadius;
+                    color: @blue;
+                    text-align: center;
+                    font-family: @mono;
+                    margin-left: 5px;
+
+                    &#animationTiming,
+                    &#animationIterations{
+                        width: 84px;
+                    }
+                }
             }
         }
         .kftn-right{
@@ -189,6 +226,11 @@
         text-transform: uppercase;
         letter-spacing: 0.75px;
         color: @lightesttext;
+
+        a{
+            text-decoration: none;
+            color: @blue;
+        }
 
         .small{
             font-size: 10px;

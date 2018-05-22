@@ -28,6 +28,45 @@
                 margin-right: 10px;
             }
         }
+        .kftn-mid{
+            display: flex;
+
+            .kftn-animation-prop{
+                display: flex;
+                padding: 0 6px;
+
+                label{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    font-size: 12px;
+                    font-weight: 600;
+                    text-align: right;
+                    letter-spacing: 0.25px;
+                }
+
+                input,
+                select{
+                    border: 1px solid @borderColor;
+                    width: auto;
+                    padding: 0 4px;
+                    min-width: 0;
+                    font-weight: 600;
+                    width: 40px;
+                    letter-spacing: 0.25px;
+                    border-radius: @borderRadius;
+                    color: @blue;
+                    text-align: center;
+                    font-family: @mono;
+                    margin-left: 5px;
+
+                    &#animationTiming,
+                    &#animationIterations{
+                        width: 84px;
+                    }
+                }
+            }
+        }
         .kftn-right{
             .kf-btn{
                 margin-left: 10px;

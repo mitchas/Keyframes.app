@@ -3,39 +3,185 @@
         CSS Properties
         at <span class="kf-current-step">0</span>%
     </div>
+    <div class="ts-subheader">
+        Don't forget units when necessary.
+        <br/>
+        <small>& if you change a value on one step, it should have a value on every step, even if it's the same or 0.</small>
+    </div>
 
 
 
-    <div id="kfPropertyList" class="kf-property-list">
-        <div class="kf-prop">
-            <div class="prop-input prop-name" contenteditable="true" placeholder="transform:" spellcheck="false" onchange="updateTargetStyles();"></div>
-            <div class="prop-input prop-value" contenteditable="true" placeholder="rotate(180deg);" spellcheck="false" onchange="updateTargetStyles();"></div>
+    <!--
+        Transform
+    -->
+    <div class="kf-presets">
+        <div class="kf-presets-header kf-well-active">Transform</div>
+        <div id="transformProps" class="kf-preset-well">
+            <!-- Rotate -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">Rotate</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" type="text" placeholder="180deg" id="presetRotate"/>
+                </div>
+            </div>
+            <!-- Scale -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">Scale</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" type="number" step="0.1" placeholder="1.5" id="presetScale"/>
+                </div>
+            </div>
+            <!-- TranslateX -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">TranslateX</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" type="text" placeholder="100px" id="presetTransX"/>
+                </div>
+            </div>
+            <!-- TranslateY -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">TranslateY</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" type="text" placeholder="-20%" id="presetTransY"/>
+                </div>
+            </div>
+            <!-- SkewX -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">SkewX</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" type="text" placeholder="15deg" id="presetSkewX"/>
+                </div>
+            </div>
+            <!-- SkewY -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">SkewY</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" type="text" placeholder="-25deg" id="presetSkewY"/>
+                </div>
+            </div>
+            <!-- Transfrom Origin -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">Transform Origin</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" type="text" placeholder="50% 50%" id="presetTransOrigin"/>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="kf-btn-right">
-        <button id="kfNewProperty" class="kf-btn">
-            Add CSS Property
-        </button>
-    </div>
-
-    <hr/>
-
-
-    <div class="ts-header">
-        Animation Properties
-    </div>
-    <div id="kfAnimationPropertyList" class="kf-property-list">
-        <div class="kf-prop">
-            <div class="editable-input noedit" contenteditable="false">animation: yourAnimation</div>
-            <div class="editable-input prop-value" contenteditable="true" placeholder="3s" spellcheck="false" id="animationProperties">3s infinite ease-in-out;</div>
+    <!--
+        Colors
+    -->
+    <div class="kf-presets">
+        <div class="kf-presets-header">Colors & Font</div>
+        <div class="kf-preset-well">
+            <!-- Rotate -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">Background</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" type="text" placeholder="#a5c9e4" id="presetBG"/>
+                </div>
+            </div>
+            <!-- Opacity -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">Opacity</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" type="number" max="1" min="0" step="0.01" placeholder="0.5" id="presetOpacity"/>
+                </div>
+            </div>
+            <!-- Color -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">Color (Text)</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" placeholder="#f0f99c" id="presetColor"/>
+                </div>
+            </div>
+            <!-- Font Size -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">Font Size</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" placeholder="18px" id="presetFontSize"/>
+                </div>
+            </div>
+            <!-- Font Weight -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">Font Weight</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" placeholder="bolder" id="presetFontWeight"/>
+                </div>
+            </div>
         </div>
     </div>
 
 
+    <!--
+        Sizing
+    -->
+    <div class="kf-presets">
+        <div class="kf-presets-header">Size & Spacing</div>
+        <div class="kf-preset-well">
+            <!-- Width -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">Width</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" type="text" placeholder="100px" id="presetWidth"/>
+                </div>
+            </div>
+            <!-- Height -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">Height</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" type="text" placeholder="120px" id="presetHeight"/>
+                </div>
+            </div>
+            <!-- Margin -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">Margin</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" placeholder="5px" id="presetMargin"/>
+                </div>
+            </div>
+            <!-- Padding -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">Padding</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" placeholder="10px" id="presetPadding"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--
+        Sizing
+    -->
+    <div class="kf-presets">
+        <div class="kf-presets-header">Border & Shadow</div>
+        <div class="kf-preset-well">
+            <!-- Border -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">Border</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" type="text" placeholder="5px solid red" id="presetBorder"/>
+                </div>
+            </div>
+            <!-- Box Shadow -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">Box Shadow</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" type="text" placeholder="10px 10px 5px 2px rgba(0,0,0,0.75);" id="presetShadow"/>
+                </div>
+            </div>
+            <!-- Outline -->
+            <div class="kf-preset-option">
+                <div class="kf-po-label">Outline</div>
+                <div class="kf-po-value">
+                    <input class="kf-po-input" type="text" placeholder="2px solid red" id="presetOutline"/>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-    <div class="sidebar-spacer"></div>
 
     <button id="deleteKeyframePos" class="kf-btn red small full center">
         Delete Step at&nbsp;<b class="kf-current-step"></b>%

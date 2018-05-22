@@ -161,18 +161,20 @@ a{
                     box-shadow: @baseShadow;
                     box-sizing: border-box;
                     border-radius: 4px;
-                    padding: 12px 20px;
+                    padding: 12px 15px;
                     transition: @transition;
                     color: @white;
-                    font-size: 14px;
+                    font-size: 13px;
                     text-transform: lowercase;
-                    font-weight: 700;
-                    letter-spacing: 0.45px;
+                    font-weight: 600;
+                    letter-spacing: 0.35px;
                     margin-right: 20px;
                     margin-bottom: 20px;
 
                     @media only screen and (max-width: 800px) {
                         margin-right: 0;
+                        font-size: 14px;
+                        letter-spacing: 0.45px;
                     }
                     @media only screen and (max-width: 550px) {
                         width: 100%;
@@ -328,6 +330,7 @@ a{
     font-family: @poppins;
     background-color: @blue;
     color: @white;
+    line-height: 28px;
 
     a{
         transition: @transition;
@@ -338,5 +341,44 @@ a{
             color: @green;
             transition: @transition;
         }
+    }
+
+    small{
+        display: block;
+        // margin-top: 15px;
+    }
+}
+
+
+// Error page
+.landing-error{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 10px 25px 200px 25px;
+    min-height: 93vh;
+    text-align: center;
+
+    .image{
+        display: block;
+        margin: 0 auto;
+        width: 300px;
+        height: auto;
+
+        img{
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    p{
+        font-size: 14px;
+        font-family: @poppins;
+        font-weight: 500;
+        letter-spacing: 0.35px;
+        color: @black;
+        line-height: 24px;
+        padding-top: 25px;
     }
 }

@@ -1,0 +1,15 @@
+# disable directory browsing
+Options All -Indexes
+
+ErrorDocument 400 /error.html
+ErrorDocument 401 /error.html
+ErrorDocument 403 /error.html
+ErrorDocument 404 /error.html
+ErrorDocument 500 /error.html
+ErrorDocument 502 /error.html
+ErrorDocument 504 /error.html
+
+
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://keyframes.app/$1 [R,L]
