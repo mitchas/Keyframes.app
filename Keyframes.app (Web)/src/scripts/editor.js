@@ -227,9 +227,10 @@ function changeStep(percent){
 
         // Set target element styles form existing step
         targetStyles = stepStyles[newStepPercent];
-
+        
+        const presetRotateInputValue = stepValues[newStepPercent][0]
         // Set input vals
-        $("#presetRotate").val(stepValues[newStepPercent][0]),
+        presetRotateInputValue && $("#presetRotate").val(presetRotateInputValue),
         $("#presetScale").val(stepValues[newStepPercent][1]),
         $("#presetTransX").val(stepValues[newStepPercent][2]),
         $("#presetTransY").val(stepValues[newStepPercent][3]),
